@@ -1,0 +1,146 @@
+* {
+  font-family: 'Assistant', sans-serif;
+  font-family: 'Nunito Sans', sans-serif;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: #eee;
+}
+
+input.hidden {
+  display: none;
+}
+
+.neumorph {
+  background: #eeeeee;
+  border-radius: 7px;
+
+  .inside, &.inside {
+    border-radius: 7px;
+    box-shadow: inset 10px 10px 20px #e2e2e2, inset -10px -10px 20px #fafafa;
+  }
+
+  .outside, &.outside {
+    border-radius: 7px;
+    box-shadow:  5px 5px 10px #d1d1d1, -5px -5px 10px #fff;
+  }
+ }
+
+header {
+
+  background: #eee;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 5px 10px #d1d1d1;
+  
+  
+  margin: 10px;
+
+  h1 {
+    font-size: 1.5em;
+    text-align: center;
+    text-transform: uppercase;
+    padding: 10px;
+    margin: 0;
+  }
+
+  ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    justify-content: flex-start;
+    gap: 10px;
+    margin: 0;
+    align-items: center;
+    flex-wrap: wrap;
+    flex: 1;
+
+    li.choice {
+      flex: 1;
+      text-align: center;
+      // border: 1px solid #000;
+      border-radius: 3px;
+      padding: 10px;
+      border-radius: 7px;
+      background: #eee;
+      font-size: 0.8em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      
+
+      input, select {
+        max-width: 100px;
+        font-size: 1em;
+        border: none;
+        padding: 3px;
+        box-sizing: border-box;
+        border-radius: 3px;
+      }
+    }
+  }
+
+  .meal {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 10px;
+
+    h3 {
+
+    }
+
+    li {
+      box-sizing: border-box;
+      font-size: 0.9em;
+      padding: 5px 0;
+
+      label {
+        padding: 5px 10px;
+        text-transform: capitalize;
+        transition: all 0.25s ease-out;
+      }
+
+      input:checked {
+        + label {
+          font-weight: 500;
+          background: #9ccbf5;
+          color: #fff;
+        }
+      }
+    }
+  }
+
+}
+
+#main-container {
+  flex: 1;
+  overflow-y: auto;
+  color: #111;
+
+  .days {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 10px;
+
+    .day {
+      flex: 1;
+      min-height: 30vh;
+      padding: 10px;
+
+      h2 {
+        margin: 0;
+        font-size: 1em;
+        text-transform: uppercase;
+      }
+    }
+  }
+}

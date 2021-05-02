@@ -1,0 +1,98 @@
+{
+  "menus": {
+    "types" : [
+      {
+        "tarts": [
+          "Tarte à la tomate", 
+          "Quiche lorraine", 
+          "Quiche au thon", 
+          "Pizza", 
+          "Cake au lardon", 
+          "Roulés à la saucisse", 
+          "Quiche petits pois lardon"
+        ]
+      },
+      {
+        "pasta": [
+          "Pâtes à la carbonara", 
+          "Carbo de courgette", 
+          "Pâtes à la crème et au poulet", 
+          "Lasagnes", 
+          "Pâtes à la bolognaise", 
+          "Pâtes aux saumons", 
+          "Pâtes aux épinards", 
+          "Gnocchi à la tomate", 
+          "Ravioli"
+        ]
+      },
+      {
+        "family": [
+          "Couscous", 
+          "Bœuf carotte", 
+          "Carbonades", 
+          "Poulet basquaise"
+        ]
+      },
+      {
+        "rice": [
+          "Riz cantonais", 
+          "Riz à la sauce tomate", 
+          "Riz et haricots rouges à là tomates", 
+          "Risotto aux légumes"
+        ]
+      },
+      {
+        "exotic": [
+          "Wok de bœuf ou poulet et nouilles sautées", 
+          "Raviolis pékinois", 
+          "Nems", 
+          "Bricks de thon", 
+          "Bricks au poulet", 
+          "Fajitas au poulet"
+        ]
+      },
+      {
+        "tortillas": [
+          "Tortilllas de patatas", 
+          "Omelettes au champignons", 
+          "Omelettes aux épinards"
+        ]
+      },
+      {
+        "sides": [ 
+          "Jardinière de légumes", 
+          "Ratatouille", 
+          "Beignets d’aubergines", 
+          "Frites", 
+          "Frites de patates douces", 
+          "Haricots verts ou beurre", 
+          "Gratin de pomme de terre et courgette", 
+          "Pomme de terres grenailles au four", 
+          "Courgettes à la poêle", 
+          "Purée de carottes", 
+          "Patates douces au four", 
+          "Légumes farcis"
+        ]
+      },
+      {
+        "meat": [
+          "Steak haché", 
+          "Poulet entier", 
+          "Poulet à la poêle", 
+          "Aiguillettes de canards", 
+          "Filet mignon à la crème Et aux champignons", 
+          "Filet mignon à la sauce tomate"
+        ]
+      },
+      {
+        "fish": [
+          "Saumon en papillotes", 
+          "Saumon à la vapeur", 
+          "Lieu noir à la poêle", 
+          "Poisson pané", 
+          "Cabillaud au citron"
+        ]
+      }
+    ]
+  }
+}

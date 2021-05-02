@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Menu Generator</title>
+
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"> -->
+  <meta name="theme-color" content="#282828">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <link href="https://fonts.googleapis.com/css?family=Assistant:200,300,400" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,200;0,300;0,400;0,600;1,200;1,300;1,400;1,600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <script src="js/utils.js"></script>
+  <script src="js/content.js"></script>
+  <script src="js/containers.js"></script>
+  <script src="js/script.js" defer></script>
+</head>
+<body class="neumorph">
+
+  <header class="inside">
+    <h1>menu de la semaine</h1>
+
+      <ul>
+        <li class="outside choice">
+          Le <input type="date">  
+        </li>
+        <li>ou</li>
+        <li class="outside choice">
+          <select name="weekdays" id="weekdays">
+            <option selected>quel jour ?</option>
+            <option value="mon">Lundi</option>
+            <option value="tue">Mardi</option>
+            <option value="wed">Mercredi</option>
+            <option value="thu">Jeudi</option>
+            <option value="fri">Vendredi</option>
+            <option value="sat">Samedi</option>
+            <option value="sun">Dimanche</option>
+          </select>
+          prochain
+        </li>
+      </ul>
+
+      <div class="filters">
+      </div>
+  </header>
+
+  <div id="main-container"></div>
+
+</body>
+</html>
