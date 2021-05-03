@@ -15,18 +15,34 @@ input.hidden {
   display: none;
 }
 
+h3 {
+  font-size: 0.9em;
+  margin: 0;
+}
+
 .neumorph {
   background: #eeeeee;
   border-radius: 7px;
 
-  .inside, &.inside {
+  .inside, 
+  &.inside,
+  // input:checked + label.outside 
+  {
     border-radius: 7px;
-    box-shadow: inset 10px 10px 20px #e2e2e2, inset -10px -10px 20px #fafafa;
+    box-shadow: inset 5px 5px 10px rgba(0,0,0,.11), inset -5px -5px 10px rgba(255,255,255,.02);
   }
 
-  .outside, &.outside {
+  .outside, 
+  &.outside,
+  // input:checked + label.inside 
+  {
     border-radius: 7px;
-    box-shadow:  5px 5px 10px #d1d1d1, -5px -5px 10px #fff;
+    box-shadow:  5px 5px 10px rgba(0,0,0,.18), -5px -5px 10px rgba(255,255,255,1);
+  }
+
+  .highlight {
+    background: rgba(156,203,245,1);
+    color: #fff;
   }
  }
 
@@ -61,6 +77,10 @@ header {
     flex-wrap: wrap;
     flex: 1;
 
+    @media screen and (max-width: 400px) {
+      flex-direction: column;
+    }
+
     li.choice {
       flex: 1;
       text-align: center;
@@ -94,25 +114,37 @@ header {
     gap: 10px;
 
     h3 {
+      margin: 0.5em 0;
+      flex: 0.2;
+    }
 
+    ul {
+      flex-direction: row;
     }
 
     li {
       box-sizing: border-box;
       font-size: 0.9em;
-      padding: 5px 0;
 
       label {
-        padding: 5px 10px;
+        height: 20px;
+        width: 20px;
         text-transform: capitalize;
         transition: all 0.25s ease-out;
+        cursor: pointer;
+        background: rgba(156, 203, 245, 0);
+        display: block;
+        padding: 5px;
+        text-align: center;
+        border-radius: 7px;
       }
 
       input:checked {
         + label {
-          font-weight: 500;
-          background: #9ccbf5;
+          background: rgba(156,203,245,1);
           color: #fff;
+          box-shadow: none;
+          border-radius: 7px;
         }
       }
     }
@@ -121,8 +153,8 @@ header {
 }
 
 #main-container {
-  flex: 1;
-  overflow-y: auto;
+  // flex: 1;
+  // overflow-y: auto;
   color: #111;
 
   .days {
@@ -135,11 +167,50 @@ header {
       flex: 1;
       min-height: 30vh;
       padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
 
       h2 {
         margin: 0;
+        padding: 10px;
+        display: inline-block;
         font-size: 1em;
         text-transform: uppercase;
+      }
+
+      .meals {
+        flex: 1;
+        display: inherit;
+        flex-direction: inherit;
+        overflow: hidden;
+
+        .meal {
+          flex: 1;
+          padding: 10px;
+          background: #fff;
+          border-bottom: 1px dashed #000;
+          display: flex;
+          align-items: baseline;
+          gap: 10px;
+
+          &:last-child {
+            border: none;
+          }
+
+          .title {
+            flex: 1;
+            
+            h3 {
+              display: inline-block;
+              padding: 5px 10px;
+            }
+          }
+
+          .content {
+            flex: 3;
+          }
+        }
       }
     }
   }

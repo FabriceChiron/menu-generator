@@ -17,67 +17,60 @@ const setAttributes = (el, attrs) => {
   }
 }
 
-const createDayContainer = (container, weekDate) => { 
-  const dayContainer = createElem('div', container, {
-    class: "day inside"
-  });
-
-  const dateContainer = createElem('h2', dayContainer);
-
-  dateContainer.innerHTML = `${weekDate.dayName} ${weekDate.day} ${weekDate.month}`;
+const isEmpty = (obj) => {
+    for(var key in obj) {
+        if(obj.hasOwnProperty(key))
+            return false;
+    }
+    return true;
 }
 
 const matchDayOfWeek = [
   {
     id: "sun",
-    name: "Dimanche"
+    name: "dimanche"
   },
   {
     id: "mon",
-    name: "Lundi"
+    name: "lundi"
   },
   {
     id: "tue",
-    name: "Mardi"
+    name: "mardi"
   },
   {
     id: "wed",
-    name: "Mercredi"
+    name: "mercredi"
   },
   {
     id: "thu",
-    name: "Jeudi"
+    name: "jeudi"
   },
   {
     id: "fri",
-    name: "Vendredi"
+    name: "vendredi"
   },
   {
     id: "sat",
-    name: "Samedi"
+    name: "samedi"
   }
 ];
 
 const arrayDays = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'];
 
+const objectMeals = {
+  lunch: 'Déjeuner',
+  dinner: 'Dîner'
+}
+
 const arrayMonths = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'November', 'Décembre'];
 
-const createWeek = (year, month, day) => {
-  const arrayWeek = [];
-
-  for (var i = 0; i < 7; i++) {
-    const thisDay = new Date(year, month,  day + i)
-    arrayWeek[i] = {
-      fullDate: thisDay.toLocaleDateString('fr-FR'),
-      dayName: matchDayOfWeek[thisDay.getDay()].name,
-      day: parseInt(thisDay.toLocaleDateString('fr-FR').split('/')[0]),
-      month: arrayMonths[thisDay.getMonth()]
-    }
+const weightedRandom = (prob) => {
+  let i, sum=0, r=Math.random();
+  for (i in prob) {
+    sum += prob[i];
+    if (r <= sum) return i;
   }
-
-  console.log(arrayWeek);
-
-  return arrayWeek;
 }
 
 const getNextDayOfTheWeek = (dayName, excludeToday = true, refDate = new Date()) => {

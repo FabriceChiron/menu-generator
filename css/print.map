@@ -1,0 +1,12 @@
+{
+	"version": 3,
+	"file": "../scss/print.css",
+	"sources": [
+		"../scss/print.scss"
+	],
+	"sourcesContent": [
+		"input {\r\n  display: none;\r\n}\r\n\r\nheader ul,\r\n.filters {\r\n  display: none;\r\n}\r\n\r\n.highlight {\r\n  background: #9ccbf5;\r\n  color: #fff;\r\n  border-radius: 7px;\r\n}"
+	],
+	"mappings": ";AAAA,AAAA,KAAK,CAAC;EACJ,OAAO,EAAE,IAAK;CACf;;;AAED,AAAO,MAAD,CAAC,EAAE;AACT,AAAA,QAAQ,CAAC;EACP,OAAO,EAAE,IAAK;CACf;;;AAED,AAAA,UAAU,CAAC;EACT,UAAU,EAAE,OAAQ;EACpB,KAAK,EAAE,IAAK;EACZ,aAAa,EAAE,GAAI;CACpB",
+	"names": []
+}

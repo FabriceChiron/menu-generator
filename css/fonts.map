@@ -1,0 +1,12 @@
+{
+	"version": 3,
+	"file": "../scss/fonts.css",
+	"sources": [
+		"../scss/fonts.scss"
+	],
+	"sourcesContent": [
+		"@font-face{ \n      font-family: 'WebSymbolsLigaRegular';\n          src: url('../fonts/websymbolsligaregular.eot');\n          src: url('../fonts/websymbolsligaregular.eot?#iefix') format('embedded-opentype'),\n               url('../fonts/websymbolsligaregular.woff') format('woff'),\n               url('../fonts/websymbolsligaregular.ttf') format('truetype'),\n               url('../fonts/websymbolsligaregular.svg#WebSymbolsRegular') format('svg');\n}"
+	],
+	"mappings": "AAAA,UAAU;EACJ,WAAW,EAAE,uBAAwB;EACjC,GAAG,EAAE,yCAAG;EACR,GAAG,EAAE,gDAAG,CAA8C,2BAAM,EACvD,0CAAG,CAAwC,cAAM,EACjD,yCAAG,CAAuC,kBAAM,EAChD,2DAAG,CAAyD,aAAM",
+	"names": []
+}
