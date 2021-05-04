@@ -270,9 +270,10 @@ header .meal li input:checked + label {
   transition: all 0.25s ease-out;
   border: 1px solid transparent;
   white-space: normal;
+  background: #fff;
 }
 
-/* line 247, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
+/* line 248, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
 #main-container .days .day .meals .meal .content select:hover {
   border: 1px solid #000;
 }
