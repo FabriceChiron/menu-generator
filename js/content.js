@@ -12,7 +12,6 @@ const getNbMeals = (mealsPerDay) => {
 
 const assignMeal = (mealsPerDay, day, meal, targetMeal, dishContainer, menus, dish, option) => {
   
-  console.log(option);
   dishContainer.dataset.type = `${targetMeal}`;
 
   if(!dish) {
@@ -27,6 +26,11 @@ const assignMeal = (mealsPerDay, day, meal, targetMeal, dishContainer, menus, di
   }
   
   const dishList = createElem('select', dishContainer);
+
+  console.log(day);
+  console.log(menus);
+  console.log(targetMeal); 
+  console.log(menus[targetMeal]);
 
   menus[targetMeal].map(mealItem => {
     const dishListItem = createElem('option', dishList, {
@@ -43,22 +47,11 @@ const assignMeal = (mealsPerDay, day, meal, targetMeal, dishContainer, menus, di
       let previousDish = dish;
       let newDish = dishList.value;
 
-      console.log(previousDish);
-      console.log(dish);
-      console.log(newDish);
-      console.log(mealsPerDay[day][meal]);
-      console.log(mealsPerDay[day][meal].includes(previousDish));
-      console.log(mealsPerDay[day][meal].indexOf(previousDish));
-
-      console.log(typeof mealsPerDay[day][meal]);
-
       let updateMeal = {};
       updateMeal[meal] = mealsPerDay[day][meal].replace(`${previousDish}`, `${newDish}`);
 
       mealsPerDay[day][meal] = updateMeal[meal];
 
-      console.log(mealsPerDay[day][meal]);
-      // console.log(mealsPerDay);
     }
   });
 
@@ -75,14 +68,14 @@ const createDish= (targetMeal, meal, day, mealsPerDay, menus, mealContainer, opt
 
   if(isEmpty(mealsPerDay[day][meal]) || option) {
     if(targetMeal === undefined) {
-      // console.log(`targetMeal doesn't exist`);
+      console.log(`targetMeal doesn't exist`);
       targetMeal = weightedRandom({mains: 1/6, tarts: 1/6, starch: 1/6, family: 1/6, exotic: 1/6, tortillas: 1/6});
     } 
     else {
-      // console.log(`targetMeal exists: ${targetMeal}`);
+      console.log(`targetMeal exists: ${targetMeal}`);
       targetMeal = targetMeal;
     }
-
+    console.log(targetMeal);
     assignMeal(mealsPerDay, day, meal, targetMeal, dishContainer, menus, null, option)
   }
   else {
@@ -97,8 +90,15 @@ const createDish= (targetMeal, meal, day, mealsPerDay, menus, mealContainer, opt
       }
     }
 
+    if(targetMeal === undefined) {
+      console.log(`targetMeal doesn't exist`);
+      targetMeal = weightedRandom({mains: 1/6, tarts: 1/6, starch: 1/6, family: 1/6, exotic: 1/6, tortillas: 1/6});
+    }
+    
     assignMeal(mealsPerDay, day, meal, targetMeal, dishContainer, menus, mealsPerDay[day][meal], option)
   }
+
+  console.log(targetMeal);
 
   return targetMeal;
 }
@@ -145,10 +145,15 @@ const reassignCategories = (menus) => {
   return menus;
 }
 
-const generateContent = (data, mealsPerDay) => {
-  let menus = {...data.menus};
-  
-  reassignCategories(menus);
+const generateContent = (data, mealsPerDay, update) => {
+
+  if(!update) {
+    menus = {...data.menus};
+    console.log(menus);
+    reassignCategories(menus);
+  }
+
+  console.log(menus);
 
 /*  let mainMenus = {...menus};
 

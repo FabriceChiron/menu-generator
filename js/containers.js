@@ -96,10 +96,10 @@ const getFilters = () => {
 }
 
 const addFilters = (mealName, mealId, data) => {
-  const mealFilterContainer = createElem('div', document.querySelector('header .filters'), {
+  const mealFilterContainer = createElem('div', document.querySelector('#filters'), {
     class: 'meal',
     id: `${mealId}`
-  });
+  }, 'prepend');
 
   const textMealName = createElem('h3', mealFilterContainer);
   textMealName.innerText = `${mealName} : `;
@@ -130,12 +130,14 @@ const addFilters = (mealName, mealId, data) => {
 
     mealListInput.onchange = () => {
       setMealsPerDay(day, mealsPerDay);
+
+      console.log(mealsPerDay[day]);
       // if(structureToCreate === true) {
       //   // getFilters();
       // }
       if(startingDate) {
-        generateContainers(startingDate[0], startingDate[1], startingDate[2]);
-        generateContent(data, mealsPerDay);
+        generateContainers(startingDate[0], startingDate[1], startingDate[2], data);
+        generateContent(menus, mealsPerDay, true);
       }
     }
  

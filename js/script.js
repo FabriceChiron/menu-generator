@@ -4,6 +4,7 @@ const mainContainer = document.querySelector('#main-container');
 const resetButton = document.querySelector('#reset');
 
 let mealsPerDay = {};
+let menus = {};
 let arrayWeek = [];
 let startingDate;
 let structureToCreate = true;
@@ -25,8 +26,8 @@ const init = () => {
   .then(res => res.json())
   .then(data => {
   
-    addFilters('Midi', 'lunch', data);
     addFilters('Soir', 'dinner', data);
+    addFilters('Midi', 'lunch', data);
 
     resetButton.onclick = () => {
       // console.log(startingDate);
