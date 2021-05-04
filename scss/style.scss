@@ -7,11 +7,16 @@ body {
   margin: 0;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
   background: #eee;
 }
 
-input.hidden {
+.symbols {
+  font-family: 'WebSymbolsLigaRegular';
+}
+
+input.hidden,
+button.hidden {
   display: none;
 }
 
@@ -54,9 +59,8 @@ header {
   flex-direction: column;
   gap: 10px;
   box-shadow: 0 5px 10px #d1d1d1;
-  
-  
   margin: 10px;
+  position: relative;
 
   h1 {
     font-size: 1.5em;
@@ -152,6 +156,28 @@ header {
 
 }
 
+.zone-buttons {
+  display: flex;
+  justify-content: center;
+  padding: 0 10px;
+  position: sticky;
+  top: 28px;
+  height: 0px;
+  align-items: center;
+
+  #reset {
+    width: 36px;
+    height: 36px;
+    text-align: center;
+    border: 2px solid #fff;
+    border: none;
+    z-index: 1;
+    border-radius: 50%;
+    box-shadow:  5px 5px 2px rgba(0,0,0,.18)
+  }
+}
+
+
 #main-container {
   // flex: 1;
   // overflow-y: auto;
@@ -209,6 +235,20 @@ header {
 
           .content {
             flex: 3;
+
+            select {
+              font-size: 1em;
+              width: 100%;
+              appearance: none;
+              transition: all 0.25s ease-out;
+              border: 1px solid transparent;
+              white-space: normal;
+
+              &:hover {
+                // appearance: auto;
+                border: 1px solid #000;
+              }
+            }
           }
         }
       }

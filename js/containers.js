@@ -28,33 +28,83 @@ const createWeek = (year, month, day) => {
   return arrayWeek;
 }
 
+/*const setMealsPerDay = (dayName, mealsPerDay) => {
+  let mealsForThisDay = {};
+  mealsForThisDay[dayName] = mealsPerDay[dayName] || {};
+
+  // console.log(mealsForThisDay[dayName]);
+
+  [...document.querySelectorAll(`#filters .${dayName} input`)].map(meal => {
+    if(meal.checked) {
+      let thisMeal = {}
+      thisMeal[meal.closest('.meal').id] = (mealsPerDay[dayName] && mealsPerDay[dayName][meal.closest('.meal').id]) ? mealsPerDay[dayName][meal.closest('.meal').id] : {}; 
+    
+      Object.assign(mealsForThisDay[dayName], thisMeal)
+
+      console.log(dayName, thisMeal);
+
+      // mealsForThisDay[dayName][meal.closest('.meal').id] = {};
+      // if(mealsPerDay[dayName]) {
+      //   console.log('yes', mealsPerDay[dayName]);
+      // }
+      // else {
+      //   console.log('no');
+      //   Object.assign(mealsPerDay[dayName], )
+      // }
+    }
+  });
+
+  console.log(dayName, mealsForThisDay[dayName]);
+
+  Object.assign(mealsPerDay, mealsForThisDay);
+}*/
+
+
 const setMealsPerDay = (dayName, mealsPerDay) => {
   let mealsForThisDay = {};
 
-  mealsForThisDay[dayName] = {};
+  mealsForThisDay[dayName] = mealsPerDay[dayName] || {};
+
+  console.log(mealsForThisDay[dayName]);
 
   [...document.querySelectorAll(`#filters .${dayName} input`)].map(meal => {
     if(meal.checked) {
 
-      console.log(mealsPerDay[dayName]);
+      console.log(dayName, mealsPerDay[dayName]);
 
-      mealsForThisDay[dayName][meal.closest('.meal').id] = {};
+      mealsForThisDay[dayName][meal.closest('.meal').id] = mealsForThisDay[dayName][meal.closest('.meal').id] || {};
+    }
+    else {
+      delete mealsForThisDay[dayName][meal.closest('.meal').id];
     }
   });
+
+  console.log(mealsForThisDay[dayName]);
 
   Object.assign(mealsPerDay, mealsForThisDay);
 }
 
+
+const getFilters = () => {
+
+  arrayDays.map(day => {
+    setMealsPerDay(day, mealsPerDay);
+  });
+
+  console.log(mealsPerDay);
+  structureToCreate = false;
+}
+
 const addFilters = (mealName, mealId, data) => {
- const mealFilterContainer = createElem('div', document.querySelector('header .filters'), {
-  class: 'meal',
-  id: `${mealId}`
- });
+  const mealFilterContainer = createElem('div', document.querySelector('header .filters'), {
+    class: 'meal',
+    id: `${mealId}`
+  });
 
- const textMealName = createElem('h3', mealFilterContainer);
- textMealName.innerText = `${mealName} : `;
+  const textMealName = createElem('h3', mealFilterContainer);
+  textMealName.innerText = `${mealName} : `;
 
- const mealList = createElem('ul', mealFilterContainer);
+  const mealList = createElem('ul', mealFilterContainer);
 
   arrayDays.map(day => {
     const mealListItem = createElem('li', mealList, {
@@ -76,10 +126,13 @@ const addFilters = (mealName, mealId, data) => {
     });
     mealListLabel.innerText = `${day.charAt(0)}`;
  
-    setMealsPerDay(day, mealsPerDay);
+    // setMealsPerDay(day, mealsPerDay);
 
     mealListInput.onchange = () => {
       setMealsPerDay(day, mealsPerDay);
+      // if(structureToCreate === true) {
+      //   // getFilters();
+      // }
       if(startingDate) {
         generateContainers(startingDate[0], startingDate[1], startingDate[2]);
         generateContent(data, mealsPerDay);
@@ -94,6 +147,12 @@ const generateContainers = (year, month, day, data) => {
   mainContainer.innerHTML = '';
 
   startingDate = [year, month, day];
+
+  console.log(mealsPerDay);
+
+  if(structureToCreate === true) {
+    getFilters();
+  }
 
   console.log(mealsPerDay);
 
@@ -118,6 +177,10 @@ const generateContainers = (year, month, day, data) => {
           class: `meal ${meal}`
         });
 
+        if(meal === 'lunch') {
+          mealsContainer.prepend(mealContainer);
+        }
+
         const mealNameContainer = createElem('div', mealContainer, {
           class: 'title'
         });
@@ -128,7 +191,10 @@ const generateContainers = (year, month, day, data) => {
         mealName.innerText = `${objectMeals[meal]}`;
       }
     }
+
   });
 
-  console.log(arrayWeek);
+  document.querySelector('#reset').classList.remove('hidden');
+
+  // console.log(arrayWeek);
 }
