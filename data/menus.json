@@ -73,6 +73,11 @@
       "Lieu noir à la poêle", 
       "Poisson pané", 
       "Cabillaud au citron"
+    ],
+    "extras": [
+      "Riz",
+      "Pâtes",
+      "Semoule de couscous"
     ]
   }
 }

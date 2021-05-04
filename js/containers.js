@@ -65,7 +65,6 @@ const setMealsPerDay = (dayName, mealsPerDay) => {
 
   mealsForThisDay[dayName] = mealsPerDay[dayName] || {};
 
-  console.log(mealsForThisDay[dayName]);
 
   [...document.querySelectorAll(`#filters .${dayName} input`)].map(meal => {
     if(meal.checked) {
@@ -79,9 +78,10 @@ const setMealsPerDay = (dayName, mealsPerDay) => {
     }
   });
 
-  console.log(mealsForThisDay[dayName]);
 
   Object.assign(mealsPerDay, mealsForThisDay);
+
+  console.log('mealsPerDay', mealsPerDay);
 }
 
 

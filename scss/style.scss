@@ -49,6 +49,11 @@ h3 {
     background: rgba(156,203,245,1);
     color: #fff;
   }
+
+  button {
+    border-radius: 50% !important;
+    box-shadow:  5px 5px 2px rgba(0,0,0,.18) !important;
+  }
  }
 
 header {
@@ -164,17 +169,17 @@ header {
   top: 28px;
   height: 0px;
   align-items: center;
+}
 
-  #reset {
-    width: 36px;
-    height: 36px;
-    text-align: center;
-    border: 2px solid #fff;
-    border: none;
-    z-index: 1;
-    border-radius: 50%;
-    box-shadow:  5px 5px 2px rgba(0,0,0,.18)
-  }
+button {
+  width: 36px;
+  height: 36px;
+  text-align: center;
+  border: 2px solid #fff;
+  border: none;
+  z-index: 1;
+  border-radius: 50%;
+  box-shadow:  5px 5px 2px rgba(0,0,0,.18);
 }
 
 
@@ -226,6 +231,7 @@ header {
 
           .title {
             flex: 1;
+            align-self: flex-start;
             
             h3 {
               display: inline-block;
@@ -244,6 +250,12 @@ header {
               border: 1px solid transparent;
               white-space: normal;
               background: #fff;
+              min-height: 1.8em;
+              padding: 3px;
+
+              option {
+                background: #fff;
+              }
 
               &:hover {
                 // appearance: auto;

@@ -54,7 +54,13 @@ h3 {
   color: #fff;
 }
 
-/* line 54, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
+/* line 53, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
+.neumorph button {
+  border-radius: 50% !important;
+  box-shadow: 5px 5px 2px rgba(0, 0, 0, 0.18) !important;
+}
+
+/* line 59, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
 header {
   background: #eee;
   padding: 20px;
@@ -66,7 +72,7 @@ header {
   position: relative;
 }
 
-/* line 65, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
+/* line 70, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
 header h1 {
   font-size: 1.5em;
   text-align: center;
@@ -75,7 +81,7 @@ header h1 {
   margin: 0;
 }
 
-/* line 73, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
+/* line 78, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
 header ul {
   display: flex;
   list-style: none;
@@ -89,13 +95,13 @@ header ul {
 }
 
 @media screen and (max-width: 400px) {
-  /* line 73, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
+  /* line 78, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
   header ul {
     flex-direction: column;
   }
 }
 
-/* line 88, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
+/* line 93, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
 header ul li.choice {
   flex: 1;
   text-align: center;
@@ -110,7 +116,7 @@ header ul li.choice {
   gap: 5px;
 }
 
-/* line 103, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
+/* line 108, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
 header ul li.choice input, header ul li.choice select {
   max-width: 100px;
   font-size: 1em;
@@ -120,7 +126,7 @@ header ul li.choice input, header ul li.choice select {
   border-radius: 3px;
 }
 
-/* line 114, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
+/* line 119, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
 header .meal {
   display: flex;
   flex-direction: row;
@@ -128,24 +134,24 @@ header .meal {
   gap: 10px;
 }
 
-/* line 120, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
+/* line 125, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
 header .meal h3 {
   margin: 0.5em 0;
   flex: 0.2;
 }
 
-/* line 125, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
+/* line 130, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
 header .meal ul {
   flex-direction: row;
 }
 
-/* line 129, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
+/* line 134, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
 header .meal li {
   box-sizing: border-box;
   font-size: 0.9em;
 }
 
-/* line 133, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
+/* line 138, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
 header .meal li label {
   height: 20px;
   width: 20px;
@@ -159,7 +165,7 @@ header .meal li label {
   border-radius: 7px;
 }
 
-/* line 147, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
+/* line 152, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
 header .meal li input:checked + label {
   background: #9ccbf5;
   color: #fff;
@@ -167,7 +173,7 @@ header .meal li input:checked + label {
   border-radius: 7px;
 }
 
-/* line 159, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
+/* line 164, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
 .zone-buttons {
   display: flex;
   justify-content: center;
@@ -178,8 +184,8 @@ header .meal li input:checked + label {
   align-items: center;
 }
 
-/* line 168, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
-.zone-buttons #reset {
+/* line 174, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
+button {
   width: 36px;
   height: 36px;
   text-align: center;
@@ -190,12 +196,12 @@ header .meal li input:checked + label {
   box-shadow: 5px 5px 2px rgba(0, 0, 0, 0.18);
 }
 
-/* line 181, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
+/* line 186, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
 #main-container {
   color: #111;
 }
 
-/* line 186, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
+/* line 191, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
 #main-container .days {
   display: flex;
   flex-direction: column;
@@ -203,7 +209,7 @@ header .meal li input:checked + label {
   padding: 10px;
 }
 
-/* line 192, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
+/* line 197, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
 #main-container .days .day {
   flex: 1;
   min-height: 30vh;
@@ -213,7 +219,7 @@ header .meal li input:checked + label {
   gap: 10px;
 }
 
-/* line 200, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
+/* line 205, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
 #main-container .days .day h2 {
   margin: 0;
   padding: 10px;
@@ -222,7 +228,7 @@ header .meal li input:checked + label {
   text-transform: uppercase;
 }
 
-/* line 208, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
+/* line 213, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
 #main-container .days .day .meals {
   flex: 1;
   display: inherit;
@@ -230,7 +236,7 @@ header .meal li input:checked + label {
   overflow: hidden;
 }
 
-/* line 214, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
+/* line 219, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
 #main-container .days .day .meals .meal {
   flex: 1;
   padding: 10px;
@@ -241,28 +247,29 @@ header .meal li input:checked + label {
   gap: 10px;
 }
 
-/* line 223, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
+/* line 228, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
 #main-container .days .day .meals .meal:last-child {
   border: none;
 }
 
-/* line 227, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
+/* line 232, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
 #main-container .days .day .meals .meal .title {
   flex: 1;
+  align-self: flex-start;
 }
 
-/* line 230, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
+/* line 236, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
 #main-container .days .day .meals .meal .title h3 {
   display: inline-block;
   padding: 5px 10px;
 }
 
-/* line 236, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
+/* line 242, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
 #main-container .days .day .meals .meal .content {
   flex: 3;
 }
 
-/* line 239, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
+/* line 245, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
 #main-container .days .day .meals .meal .content select {
   font-size: 1em;
   width: 100%;
@@ -271,9 +278,16 @@ header .meal li input:checked + label {
   border: 1px solid transparent;
   white-space: normal;
   background: #fff;
+  min-height: 1.8em;
+  padding: 3px;
 }
 
-/* line 248, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
+/* line 256, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
+#main-container .days .day .meals .meal .content select option {
+  background: #fff;
+}
+
+/* line 260, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
 #main-container .days .day .meals .meal .content select:hover {
   border: 1px solid #000;
 }
