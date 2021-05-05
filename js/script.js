@@ -9,6 +9,8 @@ let arrayWeek = [];
 let startingDate;
 let structureToCreate = true;
 
+let alreadyAssignedMeals = [];
+
 const generatePage = (year, month, day, data) => {  
 
     generateContainers(year, month, day, data);

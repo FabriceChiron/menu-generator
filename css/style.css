@@ -58,7 +58,6 @@ h3 {
 /* line 54, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
 .neumorph button {
   border-radius: 50% !important;
-  box-shadow: 5px 5px 2px rgba(0, 0, 0, 0.18) !important;
 }
 
 /* line 60, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
@@ -202,26 +201,34 @@ header ul li.choice input, header ul li.choice select {
   padding: 0 10px;
   height: 0px;
   align-items: flex-start;
+  font-size: 15px;
 }
 
-/* line 193, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
+/* line 194, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
 button {
-  width: 36px;
-  height: 36px;
+  width: 2.4em;
+  height: 2.4em;
+  line-height: 2.4em;
   text-align: center;
   border: 2px solid #fff;
   border: none;
-  z-index: 1;
   border-radius: 50%;
-  box-shadow: 5px 5px 2px rgba(0, 0, 0, 0.18);
+  box-sizing: border-box;
+  padding: 0;
 }
 
 /* line 205, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
+button#reset {
+  box-shadow: 5px 5px 2px rgba(0, 0, 0, 0.18);
+  font-size: 1em;
+}
+
+/* line 212, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
 #main-container {
   color: #111;
 }
 
-/* line 210, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
+/* line 217, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
 #main-container .days {
   display: flex;
   flex-direction: column;
@@ -229,7 +236,7 @@ button {
   padding: 10px;
 }
 
-/* line 216, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
+/* line 223, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
 #main-container .days .day {
   flex: 1;
   min-height: 30vh;
@@ -239,7 +246,7 @@ button {
   gap: 10px;
 }
 
-/* line 224, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
+/* line 231, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
 #main-container .days .day h2 {
   margin: 0;
   padding: 10px;
@@ -248,7 +255,7 @@ button {
   text-transform: uppercase;
 }
 
-/* line 232, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
+/* line 239, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
 #main-container .days .day .meals {
   flex: 1;
   display: inherit;
@@ -256,7 +263,7 @@ button {
   overflow: hidden;
 }
 
-/* line 238, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
+/* line 245, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
 #main-container .days .day .meals .meal {
   flex: 1;
   padding: 10px;
@@ -267,29 +274,37 @@ button {
   gap: 10px;
 }
 
-/* line 247, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
+/* line 254, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
 #main-container .days .day .meals .meal:last-child {
   border: none;
 }
 
-/* line 251, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
+/* line 258, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
 #main-container .days .day .meals .meal .title {
   flex: 1;
   align-self: flex-start;
 }
 
-/* line 255, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
+/* line 262, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
 #main-container .days .day .meals .meal .title h3 {
   display: inline-block;
   padding: 5px 10px;
 }
 
-/* line 261, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
-#main-container .days .day .meals .meal .content {
-  flex: 3;
+/* line 268, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
+#main-container .days .day .meals .meal .dish {
+  display: flex;
 }
 
-/* line 264, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
+/* line 272, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
+#main-container .days .day .meals .meal .content {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* line 278, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
 #main-container .days .day .meals .meal .content select {
   font-size: 1em;
   width: 100%;
@@ -300,14 +315,15 @@ button {
   background: #fff;
   min-height: 1.8em;
   padding: 3px;
+  flex: 1;
 }
 
-/* line 275, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
+/* line 290, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
 #main-container .days .day .meals .meal .content select option {
   background: #fff;
 }
 
-/* line 279, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
+/* line 294, F:/wamp/www/git-repos/menu-generator/scss/style.scss */
 #main-container .days .day .meals .meal .content select:hover {
   border: 1px solid #000;
 }

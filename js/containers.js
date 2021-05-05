@@ -69,19 +69,26 @@ const setMealsPerDay = (dayName, mealsPerDay) => {
   [...document.querySelectorAll(`#filters .${dayName} input`)].map(meal => {
     if(meal.checked) {
 
-      console.log(dayName, mealsPerDay[dayName]);
+      // console.log(dayName, mealsPerDay[dayName]);
 
       mealsForThisDay[dayName][meal.closest('.meal').id] = mealsForThisDay[dayName][meal.closest('.meal').id] || {};
     }
     else {
-      delete mealsForThisDay[dayName][meal.closest('.meal').id];
+      if(mealsForThisDay[dayName][meal.closest('.meal').id]) {
+        
+        alreadyAssignedMeals.splice(alreadyAssignedMeals.indexOf(mealsForThisDay[dayName][meal.closest('.meal').id]), 1);
+        
+        console.log(alreadyAssignedMeals);
+
+        delete mealsForThisDay[dayName][meal.closest('.meal').id];
+      }
     }
   });
 
 
   Object.assign(mealsPerDay, mealsForThisDay);
 
-  console.log('mealsPerDay', mealsPerDay);
+  // console.log('mealsPerDay', mealsPerDay);
 }
 
 
@@ -91,8 +98,8 @@ const getFilters = () => {
     setMealsPerDay(day, mealsPerDay);
   });
 
-  console.log(mealsPerDay);
-  structureToCreate = false;
+  // console.log(mealsPerDay);
+  // structureToCreate = false;
 }
 
 const addFilters = (mealName, mealId, data) => {
@@ -130,8 +137,9 @@ const addFilters = (mealName, mealId, data) => {
 
     mealListInput.onchange = () => {
       setMealsPerDay(day, mealsPerDay);
+      alreadyAssignedMeals = [];
 
-      console.log(mealsPerDay[day]);
+      // console.log(mealsPerDay[day]);
       // if(structureToCreate === true) {
       //   // getFilters();
       // }
@@ -150,13 +158,13 @@ const generateContainers = (year, month, day, data) => {
 
   startingDate = [year, month, day];
 
-  console.log(mealsPerDay);
+  // console.log(mealsPerDay);
 
   if(structureToCreate === true) {
     getFilters();
   }
 
-  console.log(mealsPerDay);
+  // console.log(mealsPerDay);
 
   const daysContainer = createElem('section', mainContainer, {
     class: 'days',
