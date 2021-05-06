@@ -28,37 +28,6 @@ const createWeek = (year, month, day) => {
   return arrayWeek;
 }
 
-/*const setMealsPerDay = (dayName, mealsPerDay) => {
-  let mealsForThisDay = {};
-  mealsForThisDay[dayName] = mealsPerDay[dayName] || {};
-
-  // console.log(mealsForThisDay[dayName]);
-
-  [...document.querySelectorAll(`#filters .${dayName} input`)].map(meal => {
-    if(meal.checked) {
-      let thisMeal = {}
-      thisMeal[meal.closest('.meal').id] = (mealsPerDay[dayName] && mealsPerDay[dayName][meal.closest('.meal').id]) ? mealsPerDay[dayName][meal.closest('.meal').id] : {}; 
-    
-      Object.assign(mealsForThisDay[dayName], thisMeal)
-
-      console.log(dayName, thisMeal);
-
-      // mealsForThisDay[dayName][meal.closest('.meal').id] = {};
-      // if(mealsPerDay[dayName]) {
-      //   console.log('yes', mealsPerDay[dayName]);
-      // }
-      // else {
-      //   console.log('no');
-      //   Object.assign(mealsPerDay[dayName], )
-      // }
-    }
-  });
-
-  console.log(dayName, mealsForThisDay[dayName]);
-
-  Object.assign(mealsPerDay, mealsForThisDay);
-}*/
-
 
 const setMealsPerDay = (dayName, mealsPerDay) => {
   let mealsForThisDay = {};
@@ -72,20 +41,14 @@ const setMealsPerDay = (dayName, mealsPerDay) => {
       // if no dish had been set for this meal, create empty array
 
       mealsForThisDay[dayName][meal.closest('.meal').id] = mealsForThisDay[dayName][meal.closest('.meal').id] || [];
-
-      console.log(mealsForThisDay[dayName][meal.closest('.meal').id]);
     }
     else {
 
       // if a dish had been set for this meal, remove the entry
       if(mealsForThisDay[dayName][meal.closest('.meal').id]) {
         
-        // To fix when entry changed from string to array:
-        // Remove entry from list of already assigned dishes
         alreadyAssignedMeals.splice(alreadyAssignedMeals.indexOf(mealsForThisDay[dayName][meal.closest('.meal').id]), 1);
         
-        console.log(alreadyAssignedMeals);
-        // remove this entry
         delete mealsForThisDay[dayName][meal.closest('.meal').id];
       }
     }

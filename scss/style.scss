@@ -128,6 +128,7 @@ header {
   gap: 10px;
   display: flex;
   flex-direction: column;
+  z-index: 1;
 
   .meal {
     display: flex;
@@ -202,6 +203,16 @@ button {
   box-sizing: border-box;
   padding: 0;
 
+  &.hide {
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  span {
+    font-family: inherit;
+    font-size: 1.5em;
+  }
+
   &#reset {
     box-shadow:  5px 5px 2px rgba(0,0,0,.18);
     font-size: 1em;
@@ -267,6 +278,29 @@ button {
 
           .dish {
             display: flex;
+            gap: 10px;
+
+            div {
+              flex: 1;
+              position: relative;
+              display: flex;
+              box-shadow: 0 0 1px rgba(0, 0, 0, .5);
+
+              &:after {
+                content: '{';
+                font-family: 'WebSymbolsLigaRegular';
+                position: absolute;
+                z-index: 1;
+                right: 0;
+                display: flex;
+                align-items: center;
+                font-size: 1.3em;
+                pointer-events: none;
+                width: 1.6rem;
+                justify-content: center;
+                height: 1.6rem;
+              }
+            }
           }
 
           .content {
@@ -275,10 +309,12 @@ button {
             flex-direction: column;
             gap: 10px;
 
+
             select {
               font-size: 1em;
               width: 100%;
               appearance: none;
+              -webkit-appearance: none;
               transition: all 0.25s ease-out;
               border: 1px solid transparent;
               white-space: normal;

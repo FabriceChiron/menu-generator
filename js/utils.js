@@ -3,10 +3,12 @@ const createElem = (el, ctnr, attrs, where) => {
   if(attrs) {
     setAttributes(element, attrs);
   }
-  if(where && where === 'prepend') {
-    ctnr.prepend(element);
-  } else {
-    ctnr.append(element);
+  if(ctnr) {
+    if(where && where === 'prepend') {
+      ctnr.prepend(element);
+    } else {
+      ctnr.append(element);
+    }
   }
   return element;
 }
