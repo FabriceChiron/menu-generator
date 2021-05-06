@@ -116,7 +116,7 @@ const createDish= (targetMeal, meal, day, mealsPerDay, menus, mealContainer, opt
   // console.log('mealsPerDay[day][meal]', mealsPerDay[day][meal]);
 
 
-  if(mealsPerDay[day][meal].length === 0 || option) {
+  if(mealsPerDay[day][meal].length === 0) {
     if(targetMeal === undefined) {
       // console.log(`targetMeal doesn't exist`);
       console.log(1, 'targetMeal', targetMeal, day, meal);
@@ -126,42 +126,45 @@ const createDish= (targetMeal, meal, day, mealsPerDay, menus, mealContainer, opt
       console.log(2, 'targetMeal', targetMeal, day, meal);
       targetMeal = targetMeal;
     }
-    // console.log(targetMeal);
-    assignMeal(mealsPerDay, day, meal, targetMeal, dishContainer, menus, mealsPerDay[day][meal], option)
+
   }
   else {
-    // console.log(mealsPerDay[day][meal]);
-
-    // console.log(day, meal);
-
-
-    for(const thisMeal in menus) {
-      console.log(menus[thisMeal]);
-      console.log(mealsPerDay[day][meal]);
-      // console.log(thisMeal, menus[thisMeal], mealsPerDay[day][meal]);
-      if(menus[thisMeal].includes(mealsPerDay[day][meal][0].toString())) {
-        targetMeal = thisMeal;
-        // console.log('targetMeal', targetMeal);
-        break;
+    if(['sides', 'extras'].includes(targetMeal)) {
+      console.log('TARGETMEAL', targetMeal);
+    }
+    else {
+      for(const thisMeal in menus) {
+        console.log(menus[thisMeal]);
+        console.log(mealsPerDay[day][meal]);
+        // console.log(thisMeal, menus[thisMeal], mealsPerDay[day][meal]);
+        if(menus[thisMeal].includes(mealsPerDay[day][meal][0].toString())) {
+          targetMeal = thisMeal;
+          // console.log('targetMeal', targetMeal);
+          break;
+        }
       }
     }
+
 
     // console.log(targetMeal);
 
     if(targetMeal === undefined) {
-      // console.log(3, 'targetMeal', targetMeal, day, meal);
-      assignMeal(mealsPerDay, day, meal, targetMeal, dishContainer, menus, mealsPerDay[day][meal], option);
+      console.log(3, 'targetMeal', targetMeal, day, meal);
     }
 
     else {
-      // console.log(4, 'targetMeal', targetMeal, day, meal);
-      assignMeal(mealsPerDay, day, meal, targetMeal, dishContainer, menus, mealsPerDay[day][meal], option);
+      console.log(4, 'targetMeal', targetMeal, day, meal);
+
     }
+
 
     // console.log(targetMeal);
 
   }
 
+  console.log('FINAL TARGET MEAL', targetMeal);
+
+  assignMeal(mealsPerDay, day, meal, targetMeal, dishContainer, menus, mealsPerDay[day][meal], option)
   // console.log(targetMeal);
 
   return targetMeal;
