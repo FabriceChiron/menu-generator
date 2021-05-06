@@ -30,33 +30,38 @@ const assignMeal = (mealsPerDay, day, meal, targetMeal, dishContainer, menus, di
   
   dishContainer.dataset.type = `${targetMeal}`;
 
-  if(!dish) {
-    // console.log('no dish yet');
+  console.log({
+    dish: dish,
+    targetMeal: targetMeal
+  });
+
+  if(dish.length === 0 || option) {
+    console.log('no dish yet, or adding to it', dish);
 
     // console.log(getRandomDish(menus, targetMeal));
 
     dish = getRandomDish(menus, targetMeal);
+    alreadyAssignedMeals.push(dish);
+  
+    if(option) {
+      console.log('option');
+      mealsPerDay[day][meal].push(dish);   
+    }
+    else {
+      console.log('no option');
+      mealsPerDay[day][meal].push(dish);
+    }
   }
 
   else {
     console.log(`Dish already set: ${dish}`);
   }
 
-  let arrayDish = dish.split(' | ');
 
-  for(var i = 0; i < arrayDish.length; i++) {
-    alreadyAssignedMeals.push(arrayDish[i]);
-  }
-
+  
 
   // console.log(alreadyAssignedMeals);
 
-  if(option) {
-    mealsPerDay[day][meal] += ` | ${dish}`;   
-  }
-  else {
-    mealsPerDay[day][meal] = dish;
-  }
 
   console.log({
     menus: menus,
@@ -81,14 +86,13 @@ const assignMeal = (mealsPerDay, day, meal, targetMeal, dishContainer, menus, di
       let previousDish = dish;
       let newDish = dishList.value;
 
-      let updateMeal = {};
-      updateMeal[meal] = mealsPerDay[day][meal].replace(`${previousDish}`, `${newDish}`);
+      mealsPerDay[day][meal] = mealsPerDay[day][meal].join(',').replace(`${previousDish}`, `${newDish}`).split(',');
 
-      console.log(alreadyAssignedMeals);
+      // console.log(alreadyAssignedMeals);
 
-      alreadyAssignedMeals = alreadyAssignedMeals.join(',').replace(`, ${previousDish}`, `${newDish}`).split(',');
+      alreadyAssignedMeals = alreadyAssignedMeals.join(',').replace(`${previousDish}`, `${newDish}`).split(',');
 
-      console.log(alreadyAssignedMeals);
+      // console.log(alreadyAssignedMeals);
 
       mealsPerDay[day][meal] = updateMeal[meal];
 
@@ -108,11 +112,11 @@ const createDish= (targetMeal, meal, day, mealsPerDay, menus, mealContainer, opt
     class: 'dish'
   });
 
-  console.log('targetMeal', targetMeal);
+  // console.log('targetMeal', targetMeal);
   // console.log('mealsPerDay[day][meal]', mealsPerDay[day][meal]);
 
 
-  if((typeof mealsPerDay[day][meal] === 'object' && isEmpty(mealsPerDay[day][meal])) || (typeof mealsPerDay[day][meal]) === 'string' && mealsPerDay[day][meal] === '' || option) {
+  if(mealsPerDay[day][meal].length === 0 || option) {
     if(targetMeal === undefined) {
       // console.log(`targetMeal doesn't exist`);
       console.log(1, 'targetMeal', targetMeal, day, meal);
@@ -123,7 +127,7 @@ const createDish= (targetMeal, meal, day, mealsPerDay, menus, mealContainer, opt
       targetMeal = targetMeal;
     }
     // console.log(targetMeal);
-    assignMeal(mealsPerDay, day, meal, targetMeal, dishContainer, menus, null, option)
+    assignMeal(mealsPerDay, day, meal, targetMeal, dishContainer, menus, mealsPerDay[day][meal], option)
   }
   else {
     // console.log(mealsPerDay[day][meal]);
@@ -135,7 +139,7 @@ const createDish= (targetMeal, meal, day, mealsPerDay, menus, mealContainer, opt
       console.log(menus[thisMeal]);
       console.log(mealsPerDay[day][meal]);
       // console.log(thisMeal, menus[thisMeal], mealsPerDay[day][meal]);
-      if(menus[thisMeal].includes(mealsPerDay[day][meal].split(' | ')[0].toString())) {
+      if(menus[thisMeal].includes(mealsPerDay[day][meal][0].toString())) {
         targetMeal = thisMeal;
         // console.log('targetMeal', targetMeal);
         break;
@@ -145,12 +149,12 @@ const createDish= (targetMeal, meal, day, mealsPerDay, menus, mealContainer, opt
     // console.log(targetMeal);
 
     if(targetMeal === undefined) {
-      console.log(3, 'targetMeal', targetMeal, day, meal);
+      // console.log(3, 'targetMeal', targetMeal, day, meal);
       assignMeal(mealsPerDay, day, meal, targetMeal, dishContainer, menus, mealsPerDay[day][meal], option);
     }
 
     else {
-      console.log(4, 'targetMeal', targetMeal, day, meal);
+      // console.log(4, 'targetMeal', targetMeal, day, meal);
       assignMeal(mealsPerDay, day, meal, targetMeal, dishContainer, menus, mealsPerDay[day][meal], option);
     }
 
@@ -180,11 +184,11 @@ const assignDishCategoryPerMeal = (mealsPerDay, menus) => {
 
       if(targetMeal === 'mains') {
         console.log('add sides');
-        createDish('sides', meal, day, mealsPerDay, menus, mealContainer, 'add');
+        targetMeal = createDish('sides', meal, day, mealsPerDay, menus, mealContainer, 'add');
 
         if( Math.round(Math.random()) > 0 ) {
           console.log('add extras');
-          createDish('extras', meal, day, mealsPerDay, menus, mealContainer, 'add');
+          targetMeal = createDish('extras', meal, day, mealsPerDay, menus, mealContainer, 'add');
         }
       }
 

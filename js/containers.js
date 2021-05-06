@@ -69,17 +69,23 @@ const setMealsPerDay = (dayName, mealsPerDay) => {
   [...document.querySelectorAll(`#filters .${dayName} input`)].map(meal => {
     if(meal.checked) {
 
-      // console.log(dayName, mealsPerDay[dayName]);
+      // if no dish had been set for this meal, create empty array
 
-      mealsForThisDay[dayName][meal.closest('.meal').id] = mealsForThisDay[dayName][meal.closest('.meal').id] || {};
+      mealsForThisDay[dayName][meal.closest('.meal').id] = mealsForThisDay[dayName][meal.closest('.meal').id] || [];
+
+      console.log(mealsForThisDay[dayName][meal.closest('.meal').id]);
     }
     else {
+
+      // if a dish had been set for this meal, remove the entry
       if(mealsForThisDay[dayName][meal.closest('.meal').id]) {
         
+        // To fix when entry changed from string to array:
+        // Remove entry from list of already assigned dishes
         alreadyAssignedMeals.splice(alreadyAssignedMeals.indexOf(mealsForThisDay[dayName][meal.closest('.meal').id]), 1);
         
         console.log(alreadyAssignedMeals);
-
+        // remove this entry
         delete mealsForThisDay[dayName][meal.closest('.meal').id];
       }
     }
@@ -137,7 +143,6 @@ const addFilters = (mealName, mealId, data) => {
 
     mealListInput.onchange = () => {
       setMealsPerDay(day, mealsPerDay);
-      alreadyAssignedMeals = [];
 
       // console.log(mealsPerDay[day]);
       // if(structureToCreate === true) {
