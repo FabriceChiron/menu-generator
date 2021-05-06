@@ -191,6 +191,7 @@ const generateContainers = (year, month, day, data) => {
         const mealContainer = createElem('div', mealsContainer, {
           class: `meal ${meal}`
         });
+        mealContainer.dataset.type = meal;
 
         if(meal === 'lunch') {
           mealsContainer.prepend(mealContainer);

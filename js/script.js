@@ -36,6 +36,7 @@ const init = () => {
 
       if(startingDate) {
         mealsPerDay = {};
+        alreadyAssignedMeals = [];
         structureToCreate = true;
         generatePage(startingDate[0], startingDate[1], startingDate[2], data);
       }
