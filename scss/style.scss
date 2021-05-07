@@ -114,6 +114,12 @@ header {
         box-sizing: border-box;
         border-radius: 3px;
       }
+
+      select {
+        max-width: 70px;
+        appearance: none;
+        -webkit-appearance: none;
+      }
     }
   }
 
@@ -138,7 +144,7 @@ header {
 
     h3 {
       margin: 0.5em 0;
-      flex: 0.2;
+      flex: 1;
     }
 
     ul {
@@ -150,7 +156,7 @@ header {
       margin: 0;
       align-items: center;
       flex-wrap: wrap;
-      flex: 1;
+      flex: 7.7;
       flex-direction: row;
     }
 
