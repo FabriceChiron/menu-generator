@@ -45,7 +45,7 @@
       "Omelettes au champignons", 
       "Omelettes aux épinards"
     ],
-    "sides": [ 
+    "veggies": [ 
       "Jardinière de légumes", 
       "Ratatouille", 
       "Beignets d’aubergines", 
@@ -56,8 +56,7 @@
       "Pomme de terres grenailles au four", 
       "Courgettes à la poêle", 
       "Purée de carottes", 
-      "Patates douces au four", 
-      "Légumes farcis"
+      "Patates douces au four"
     ],
     "meat": [
       "Steak haché", 
@@ -65,7 +64,8 @@
       "Poulet à la poêle", 
       "Aiguillettes de canards", 
       "Filet mignon à la crème Et aux champignons", 
-      "Filet mignon à la sauce tomate"
+      "Filet mignon à la sauce tomate",
+      "Légumes farcis"
     ],
     "fish": [
       "Saumon en papillotes", 

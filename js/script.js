@@ -13,12 +13,11 @@ let alreadyAssignedMeals = [];
 
 const generatePage = (year, month, day, data) => {  
 
+
+    // console.log('structureToCreate', structureToCreate);
+    menus = reassignCategories({...data.menus});
+    generateWeek(data, mealsPerDay);
     generateContainers(year, month, day, data);
-
-    console.log('structureToCreate', structureToCreate);
-
-    generateContent(data, mealsPerDay);
-
 }
 
 const init = () => {

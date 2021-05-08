@@ -10,6 +10,13 @@ body {
   min-height: 100vh;
   background: #eee;
   justify-content: center;
+  max-width: 1000px;
+  margin: auto;
+
+  @media print {
+    width: 20cm;
+    margin: auto;
+  }
 }
 
 .symbols {
@@ -30,6 +37,9 @@ h3 {
   background: #eeeeee;
   border-radius: 7px;
 
+  @media print {
+    background: #fff;
+  }
   .inside, 
   &.inside,
   // input:checked + label.outside 
@@ -87,10 +97,6 @@ header {
     flex-wrap: wrap;
     flex: 1;
 
-    @media screen and (max-width: 400px) {
-      flex-direction: column;
-    }
-
     li.choice {
       flex: 1;
       text-align: center;
@@ -104,7 +110,6 @@ header {
       align-items: center;
       justify-content: center;
       gap: 5px;
-      
 
       input, select {
         max-width: 100px;
@@ -117,8 +122,10 @@ header {
 
       select {
         max-width: 70px;
+        padding: 4px;
         appearance: none;
         -webkit-appearance: none;
+        background: #fff; 
       }
     }
   }
@@ -134,59 +141,72 @@ header {
   gap: 10px;
   display: flex;
   flex-direction: column;
-  z-index: 1;
+  z-index: 2;
+  align-items: center;
 
-  .meal {
+  #filters-wrapper {
     display: flex;
-    flex-direction: row;
-    align-items: baseline;
     gap: 10px;
+    flex: 1;
+    flex-wrap: wrap;
+    justify-content: center;
 
-    h3 {
-      margin: 0.5em 0;
-      flex: 1;
-    }
-
-    ul {
+    .meal {
       display: flex;
-      list-style: none;
-      padding: 0;
-      justify-content: flex-start;
-      gap: 10px;
-      margin: 0;
-      align-items: center;
-      flex-wrap: wrap;
-      flex: 7.7;
       flex-direction: row;
-    }
+      align-items: baseline;
+      gap: 10px;
+      flex-wrap: nowrap;
 
-    li {
-      box-sizing: border-box;
-      font-size: 0.9em;
-
-      label {
-        height: 20px;
-        width: 20px;
-        text-transform: capitalize;
-        transition: all 0.25s ease-out;
-        cursor: pointer;
-        background: rgba(156, 203, 245, 0);
-        display: block;
-        padding: 5px;
-        text-align: center;
-        border-radius: 7px;
+      h3 {
+        margin: 0.5em 0;
+        flex: 1;
+        white-space: nowrap;
       }
 
-      input:checked {
-        + label {
-          background: rgba(156,203,245,1);
-          color: #fff;
-          box-shadow: none;
+      ul {
+        display: flex;
+        list-style: none;
+        padding: 0;
+        justify-content: flex-start;
+        gap: 10px;
+        margin: 0;
+        align-items: center;
+        flex: 7.7;
+        flex-direction: row;
+      }
+
+      li {
+        box-sizing: border-box;
+        font-size: 0.9em;
+
+        label {
+          height: 20px;
+          width: 20px;
+          text-transform: capitalize;
+          transition: all 0.25s ease-out;
+          cursor: pointer;
+          background: rgba(156, 203, 245, 0);
+          display: block;
+          padding: 5px;
+          text-align: center;
           border-radius: 7px;
+        }
+
+        input:checked {
+          + label {
+            background: rgba(156,203,245,1);
+            color: #fff;
+            box-shadow: none;
+            border-radius: 7px;
+          }
         }
       }
     }
+
   }
+
+
 }
 
 .zone-buttons {
@@ -208,6 +228,7 @@ button {
   border-radius: 50%;
   box-sizing: border-box;
   padding: 0;
+  cursor: pointer;
 
   &.hide {
     visibility: hidden;
@@ -237,13 +258,16 @@ button {
     gap: 20px;
     padding: 10px;
 
+
     .day {
       flex: 1;
-      min-height: 30vh;
+      // min-height: 30vh;
       padding: 10px;
       display: flex;
       flex-direction: column;
       gap: 10px;
+
+
 
       h2 {
         margin: 0;
@@ -286,11 +310,18 @@ button {
             display: flex;
             gap: 10px;
 
-            div {
+            &[data-type="veggies"]:first-child {
+              .hide {
+                display: none;
+              }
+            }
+
+            .select-wrapper {
               flex: 1;
               position: relative;
               display: flex;
               box-shadow: 0 0 1px rgba(0, 0, 0, .5);
+              align-self: baseline;
 
               &:after {
                 content: '{';
@@ -305,7 +336,17 @@ button {
                 width: 1.6rem;
                 justify-content: center;
                 height: 1.6rem;
+
+                @media print {
+                  display: none;
+                }
               }
+            }
+
+            .buttons {
+              display: flex;
+              gap: 10px;
+              flex-direction: column;
             }
           }
 
@@ -327,7 +368,12 @@ button {
               background: #fff;
               min-height: 1.8em;
               padding: 3px;
+              padding-right: 1.6rem;
               flex: 1;
+
+              @media print {
+                border: none;
+              }
 
               option {
                 background: #fff;
@@ -336,6 +382,136 @@ button {
               &:hover {
                 // appearance: auto;
                 border: 1px solid #000;
+              }
+            }
+          }
+        }
+      }
+    }
+    
+    @media print, screen and (min-width: 800px) {
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+
+      .day {
+        min-width: 40%;
+        max-width: 50%;
+        min-height: 0;
+        
+        h2 {
+          margin: 0;
+          padding: 10px;
+          display: inline-block;
+          font-size: 1em;
+          text-transform: uppercase;
+        }
+
+        .meals {
+
+          .meal {
+            
+            &:last-child {
+              border: none;
+            }
+
+            .title {
+              
+              h3 {
+                
+              }
+            }
+
+            .dish {
+              
+              div {
+                &:after {
+                }
+              }
+            }
+
+            .content {
+
+              select {
+                border: none;
+
+                option {
+                  background: #fff;
+                }
+
+                &:hover {
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+@media print {
+  input, button {
+  display: none;
+  }
+
+  header {
+    padding: 0;
+  }
+
+  header ul,
+  .filters {
+    display: none;
+  }
+
+  .days {
+    .day {
+      
+      h2 {
+      }
+
+      .meals {
+
+        .meal {
+          
+          &:last-child {
+          }
+
+          .title {
+            
+            h3 {
+              
+            }
+          }
+
+          .dish {
+            
+            div {
+              box-shadow: none;
+
+              &:after {
+                display: none;
+              }
+            }
+          }
+
+          .content {
+
+            select {
+              border: 0;
+              box-shadow: none;
+
+              &:focus {
+                border: none;
+              }
+
+              option {
+                background: #fff;
+              }
+
+              &:hover {
+                border: none;
               }
             }
           }
