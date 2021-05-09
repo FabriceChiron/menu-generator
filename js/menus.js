@@ -11,7 +11,11 @@ const getCategoryTitle = {
   extras: "Extras" 
 }
 
-const createHeader = (popinHeader, popin) => {
+const checkModifications = (data) => {
+
+}
+
+const createHeader = (popinHeader, popin, data) => {
   const validateListContainer = createElem('div', popinHeader);
   validateListContainer.innerText = 'Valider la liste';  
 
@@ -19,7 +23,13 @@ const createHeader = (popinHeader, popin) => {
     id: '#validate-list',
     class: 'highlight outside symbols'
   }, 'prepend');
-  validateListButton.innerText = 'õ';
+  validateListButton.innerHTML = '<span>õ</span>';
+
+  validateListButton.onclick = () => {
+    // if(confirm("Sauvegarder les modifications ?")) {
+      checkModifications(data)
+    // }
+  }
 
   const closeListContainer = createElem('div', popinHeader);
 
@@ -27,7 +37,7 @@ const createHeader = (popinHeader, popin) => {
     id: '#close-list',
     class: 'highlight outside symbols'
   }, 'prepend');
-  closeListButton.innerText = 'Î';
+  closeListButton.innerHTML = '<span>Î</span>';
 
   closeListButton.onclick = () => {
     if(confirm("Annuler l'édition de la liste ?")) {
@@ -37,30 +47,51 @@ const createHeader = (popinHeader, popin) => {
 }
 
 const createDishLine = (dishList, data, category, i) => {
-  const dishItem = createElem('li', dishList);
-
   const originDish = data.menus[category][i];
 
+  const dishItem = createElem('li', dishList);
   dishItem.dataset.originDish = originDish;
 
   const dishContainer = createElem('div', dishItem, {
     contenteditable: false
   });
-  dishContainer.innerText = data.menus[category][i];
+  dishContainer.innerText = originDish;
+
+  const dishUndoButton = createElem('button', dishItem, {
+    class: 'highlight outside symbols hidden'
+  });
+  dishUndoButton.innerText = 'ª';
 
   const dishEditButton = createElem('button', dishItem, {
     class: 'highlight outside symbols'
   });
   dishEditButton.innerText = '?';
 
+  
+  dishUndoButton.onclick = () => {
+    dishContainer.innerText = originDish;
+    dishUndoButton.classList.add('hidden');
+    dishEditButton.click();
+  }
+
+  dishContainer.oninput = () => {
+    if(dishContainer.innerText === originDish) {
+      dishUndoButton.classList.add('hidden');
+    }
+    else {
+      dishUndoButton.classList.remove('hidden');
+    }
+  }
+
   dishEditButton.onclick = () => {
-    console.log(dishContainer.contentEditable);
     if(dishContainer.contentEditable === "false") {
       dishContainer.contentEditable = "true";
+      dishEditButton.innerText = 'õ';
       dishContainer.focus();
     }
     else {
       dishContainer.contentEditable = "false";
+      dishEditButton.innerText = '?';
     }
   }
 }
@@ -77,7 +108,7 @@ const editMenus = (data) => {
   const popinSection = createElem('section', popin);
   const popinFooter = createElem('footer', popin);
 
-  createHeader(popinHeader, popin);
+  createHeader(popinHeader, popin, data);
 
   const categoriesContainer = createElem('div', popinSection, {
     class: 'categories',
@@ -90,6 +121,7 @@ const editMenus = (data) => {
     const categoryContainer = createElem('div', categoriesContainer, {
       class: 'category'
     });
+    categoryContainer.dataset.category = category;
 
     const inputToggleCategory = createElem('input', categoryContainer, {
       type: 'checkbox',
