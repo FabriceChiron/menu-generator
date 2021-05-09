@@ -27,6 +27,19 @@ const isEmpty = (obj) => {
     return true;
 }
 
+const getCategoryTitleText = {
+  tarts: "tartes",
+  pasta: "pâtes",
+  family: "plats familiaux",
+  rice: "riz",
+  exotic: "exotique",
+  tortillas: "plats à base d'oeuf",
+  veggies: "légumes",
+  meat: "viandes",
+  fish: "poissons",
+  extras: "extras" 
+}
+
 const matchDayOfWeek = [
   {
     id: "sun",
