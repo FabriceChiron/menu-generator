@@ -43,14 +43,10 @@ const createDishLine = (dishList, data, category, i) => {
 
   dishItem.dataset.originDish = originDish;
 
-  const dishContainer = createElem('div', dishItem);
-  dishContainer.innerText = data.menus[category][i];
-
-  const dishField = createElem('input', dishItem, {
-    type: "text",
-    class: 'hidden',
-    value: originDish
+  const dishContainer = createElem('div', dishItem, {
+    contenteditable: false
   });
+  dishContainer.innerText = data.menus[category][i];
 
   const dishEditButton = createElem('button', dishItem, {
     class: 'highlight outside symbols'
@@ -58,8 +54,14 @@ const createDishLine = (dishList, data, category, i) => {
   dishEditButton.innerText = '?';
 
   dishEditButton.onclick = () => {
-    dishContainer.classList.toggle('hidden');
-    dishField.classList.toggle('hidden');
+    console.log(dishContainer.contentEditable);
+    if(dishContainer.contentEditable === "false") {
+      dishContainer.contentEditable = "true";
+      dishContainer.focus();
+    }
+    else {
+      dishContainer.contentEditable = "false";
+    }
   }
 }
 
