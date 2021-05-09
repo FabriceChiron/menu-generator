@@ -29,7 +29,7 @@
     "rice": [
       "Riz cantonais", 
       "Riz à la sauce tomate", 
-      "Riz et haricots rouges à là tomates", 
+      "Riz et haricots rouges à la tomates", 
       "Risotto aux légumes"
     ],
     "exotic": [
@@ -42,8 +42,8 @@
     ],
     "tortillas": [
       "Tortilllas de patatas", 
-      "Omelettes au champignons", 
-      "Omelettes aux épinards"
+      "Omelette aux champignons", 
+      "Omelette aux épinards"
     ],
     "veggies": [ 
       "Jardinière de légumes", 
@@ -63,7 +63,7 @@
       "Poulet entier", 
       "Poulet à la poêle", 
       "Aiguillettes de canards", 
-      "Filet mignon à la crème Et aux champignons", 
+      "Filet mignon à la crème et aux champignons", 
       "Filet mignon à la sauce tomate",
       "Légumes farcis"
     ],
