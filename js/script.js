@@ -8,7 +8,7 @@ let mealsPerDay = {};
 let menus = {};
 let arrayWeek = [];
 let startingDate;
-let structureToCreate = true;
+// let structureToCreate = true;
 
 let alreadyAssignedMeals = [];
 
@@ -36,12 +36,12 @@ const init = () => {
     }
 
     resetButton.onclick = () => {
-      // console.log(startingDate);
 
       if(startingDate) {
         mealsPerDay = {};
         alreadyAssignedMeals = [];
-        structureToCreate = true;
+        // structureToCreate = true;
+        generateWeek(data, mealsPerDay);
         generatePage(startingDate[0], startingDate[1], startingDate[2], data);
       }
     }
