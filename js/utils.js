@@ -27,6 +27,19 @@ const isEmpty = (obj) => {
     return true;
 }
 
+const getCategoryTitleText = {
+  tarts: "tartes",
+  pasta: "pâtes",
+  family: "plats familiaux",
+  rice: "riz",
+  exotic: "exotique",
+  tortillas: "plats à base d'oeuf",
+  veggies: "légumes",
+  meat: "viandes",
+  fish: "poissons",
+  extras: "extras" 
+}
+
 const matchDayOfWeek = [
   {
     id: "sun",
@@ -68,10 +81,18 @@ const objectMeals = {
 const arrayMonths = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'November', 'Décembre'];
 
 const weightedRandom = (prob) => {
+  let key, total = 0;
+
+  for(key in prob) {
+    total += prob[key];
+  }
+
   let i, sum=0, r=Math.random();
   for (i in prob) {
-    sum += prob[i];
-    if (r <= sum) return i;
+    sum += prob[i]/total;
+    if (r <= sum) {
+      return i;
+    }
   }
 }
 
@@ -82,8 +103,5 @@ const getNextDayOfTheWeek = (dayName, excludeToday = true, refDate = new Date())
     refDate.setHours(0,0,0,0);
     refDate.setDate(refDate.getDate() + +!!excludeToday + 
                     (dayOfWeek + 7 - refDate.getDay() - +!!excludeToday) % 7);
-    // console.log(refDate.toLocaleDateString('fr-FR'));
     return refDate.toLocaleDateString('fr-FR');
 }
-
-console.log("Next is: " + getNextDayOfTheWeek("Wednesday", false));

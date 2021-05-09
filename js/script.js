@@ -2,22 +2,19 @@ const thatDay = document.querySelector('header input[type="date"]');
 const startOnNext = document.querySelector('header select');
 const mainContainer = document.querySelector('#main-container');
 const resetButton = document.querySelector('#reset');
+const editMenusButton = document.querySelector('#edit-list');
 
 let mealsPerDay = {};
 let menus = {};
 let arrayWeek = [];
 let startingDate;
-let structureToCreate = true;
+// let structureToCreate = true;
 
 let alreadyAssignedMeals = [];
 
 const generatePage = (year, month, day, data) => {  
 
     generateContainers(year, month, day, data);
-
-    console.log('structureToCreate', structureToCreate);
-
-    generateContent(data, mealsPerDay);
 
 }
 
@@ -31,13 +28,20 @@ const init = () => {
     addFilters('Soir', 'dinner', data);
     addFilters('Midi', 'lunch', data);
 
+    menus = reassignCategories({...data.menus});
+    generateWeek(data, mealsPerDay);
+
+    editMenusButton.parentElement.onclick = () => {
+      editMenus(data);
+    }
+
     resetButton.onclick = () => {
-      // console.log(startingDate);
 
       if(startingDate) {
         mealsPerDay = {};
         alreadyAssignedMeals = [];
-        structureToCreate = true;
+        // structureToCreate = true;
+        generateWeek(data, mealsPerDay);
         generatePage(startingDate[0], startingDate[1], startingDate[2], data);
       }
     }

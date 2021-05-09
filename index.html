@@ -12,48 +12,58 @@
 
   <link rel="stylesheet" href="css/scrollbars.css">
   <link rel="stylesheet" href="css/fonts.css">
-  <link media="screen" rel="stylesheet" href="css/style.css">
-  <link media="print" rel="stylesheet" href="css/print.css">
+  <link rel="stylesheet" href="css/style.css">
 
   <script src="js/utils.js"></script>
-  <script src="js/content.js"></script>
-  <script src="js/containers.js"></script>
+  <script src="js/planning.js"></script>
+  <script src="js/elements.js"></script>
+  <script src="js/menus.js"></script>
   <script src="js/script.js" defer></script>
 </head>
 <body class="neumorph">
 
-  <header class="inside">
-    <h1 class="outside highlight">menu de la semaine</h1>
+  <section>
+    <header class="inside">
+      <h1 class="outside highlight">menu de la semaine</h1>
 
-      <ul>
-        <li class="outside choice">
-          Le <input type="date">  
-        </li>
-        <li class="outside choice">
-          ou
-          <select name="weekdays" id="weekdays">
-            <option value=''>jour ?</option>
-            <option value="mon">Lundi</option>
-            <option value="tue">Mardi</option>
-            <option value="wed">Mercredi</option>
-            <option value="thu">Jeudi</option>
-            <option value="fri">Vendredi</option>
-            <option value="sat">Samedi</option>
-            <option value="sun">Dimanche</option>
-          </select>
-          prochain
-        </li>
-      </ul>
+        <ul>
+          <li class="outside choice">
+            Le <input type="date">  
+          </li>
+          <li class="outside choice">
+            ou
+            <select name="weekdays" id="weekdays">
+              <option value=''>[jour]</option>
+              <option value="mon">Lundi</option>
+              <option value="tue">Mardi</option>
+              <option value="wed">Mercredi</option>
+              <option value="thu">Jeudi</option>
+              <option value="fri">Vendredi</option>
+              <option value="sat">Samedi</option>
+              <option value="sun">Dimanche</option>
+            </select>
+            prochain
+          </li>
+        </ul>
 
-  </header>
+    </header>
 
-  <div class="filters outside" id="filters">
-    <div class="zone-buttons">
-      <button id="reset" class="highlight inside symbols hidden">~</button>
+    <div class="filters outside" id="filters">
+      <div id="filters-wrapper"></div>
+      <div class="zone-buttons">
+        <button id="reset" class="highlight inside symbols hidden">!</button>
+      </div>
     </div>
-  </div>
 
-  <div id="main-container"></div>
+    <div id="main-container"></div>
+  </section>
+
+  <footer>
+    <div class="outside">
+      <button id="edit-list" class="highlight inside symbols">?</button>Editer la liste des plats
+    </div>
+  </footer>
+
 
 </body>
 </html>
