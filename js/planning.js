@@ -1,6 +1,5 @@
 const reassignCategories = (menus) => {
   menus.mains = [...menus.meat, ...menus.fish];
-  menus.sides = [...menus.veggies];
   delete menus.meat;
   delete menus.fish;
 

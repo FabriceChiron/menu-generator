@@ -11,8 +11,73 @@ const getCategoryTitle = {
   extras: "Extras" 
 }
 
-const checkModifications = (data) => {
+const updateMealsPerDay = (data, thisCatType, currentDish, newDish) => {
+  for(day in mealsPerDay) {
+    for (meal in mealsPerDay[day]) {
+      switch(thisCatType) {
+        case 'rice':
+        case 'pasta':
+          thisCatType = 'starch';
+        break;
 
+        case 'meat':
+        case 'fish':
+          thisCatType = 'mains';
+        break;
+      }
+
+      if(mealsPerDay[day][meal][thisCatType] && mealsPerDay[day][meal][thisCatType] === currentDish) {
+        console.log(`found one on ${day} - ${meal}`);
+        mealsPerDay[day][meal][thisCatType] = newDish;
+      }
+    }
+  }
+
+} 
+
+const checkModifications = (data, popin) => {
+
+  console.log("before", mealsPerDay);
+
+  [...popin.querySelectorAll('.category')].map(thisCategory => {
+    thisCatType = thisCategory.dataset.category;
+    // console.log(thisCatType, data.menus[thisCatType]);
+    // console.log(thisCategory.querySelector('ul').childNodes.length);
+    // console.log(data.menus[thisCatType].length);
+
+    [...thisCategory.querySelectorAll('ul li')].map((thisItem, index) => {
+      const currentDish = data.menus[thisCatType][index];
+      const newDish = thisItem.querySelector('div').innerText;
+      
+      // If thisItem is not a new one
+      if(index < data.menus[thisCatType].length) {
+        // If the dish has been updated
+        if(currentDish !== newDish) {
+          console.log('content change', {
+            old: currentDish,
+            new: newDish
+          });
+          data.menus[thisCatType][index] = newDish;
+
+          if(alreadyAssignedMeals.includes(currentDish)) {
+            alreadyAssignedMeals[alreadyAssignedMeals.indexOf(currentDish)] = newDish;
+            updateMealsPerDay(data, thisCatType, currentDish, newDish);
+          }
+        }
+      }
+    })
+  });
+
+  console.log(data.menus);
+  
+  if(startingDate) {
+    console.log('regenerating page');
+    menus = reassignCategories({...data.menus});
+
+    console.log("after", mealsPerDay);
+
+    generatePage(startingDate[0], startingDate[1], startingDate[2], data);
+  }
 }
 
 const createHeader = (popinHeader, popin, data) => {
@@ -27,7 +92,7 @@ const createHeader = (popinHeader, popin, data) => {
 
   validateListButton.onclick = () => {
     // if(confirm("Sauvegarder les modifications ?")) {
-      checkModifications(data)
+      checkModifications(data, popin);
     // }
   }
 
@@ -71,7 +136,7 @@ const createDishLine = (dishList, data, category, i) => {
   dishUndoButton.onclick = () => {
     dishContainer.innerText = originDish;
     dishUndoButton.classList.add('hidden');
-    dishEditButton.click();
+    // dishEditButton.click();
   }
 
   dishContainer.oninput = () => {
@@ -96,20 +161,7 @@ const createDishLine = (dishList, data, category, i) => {
   }
 }
 
-const editMenus = (data) => {
-  console.log(data.menus);
-
-  const popin = createElem('div', document.body, {
-    id: "popin-menus",
-    class: 'outside'
-  });
-
-  const popinHeader = createElem('header', popin);
-  const popinSection = createElem('section', popin);
-  const popinFooter = createElem('footer', popin);
-
-  createHeader(popinHeader, popin, data);
-
+const createList = (popin, popinSection, data) => {
   const categoriesContainer = createElem('div', popinSection, {
     class: 'categories',
     id: 'categories'
@@ -153,4 +205,21 @@ const editMenus = (data) => {
     }
 
   }
+}
+
+const editMenus = (data) => {
+  console.log(data.menus);
+
+  const popin = createElem('div', document.body, {
+    id: "popin-menus",
+    class: 'outside'
+  });
+
+  const popinHeader = createElem('header', popin);
+  const popinSection = createElem('section', popin);
+
+  createHeader(popinHeader, popin, data);
+
+  createList(popin, popinSection, data);
+
 }
