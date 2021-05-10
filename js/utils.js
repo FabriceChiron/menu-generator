@@ -40,6 +40,11 @@ const getCategoryTitleText = {
   extras: "extras" 
 }
 
+const getMealText = {
+  lunch: "Déjeuner",
+  dinner: "Dîner"
+}
+
 const matchDayOfWeek = [
   {
     id: "sun",
