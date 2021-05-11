@@ -1,3 +1,31 @@
+let saveDataToJson = function(data) {
+  var json_data = data;
+  
+  console.log('json_data', json_data);
+  console.log('JSON.stringify(json_data)', JSON.stringify(json_data));
+
+  $.ajax({
+    type : "POST",
+    url : "data/save.php",
+    data : {
+        json : JSON.stringify(json_data)
+    },
+    success: function (data){
+      console.log('data', data);
+      console.log("Saved!");
+    },
+    done: function (data) {
+      console.log('done');
+      console.log(data);
+    },
+    fail: function (data) {
+      console.log('fail');
+      console.log(data);
+    }
+  });
+
+}
+
 const getCategoryTitle = {
   tarts: "Tartes",
   pasta: "Pâtes",
@@ -102,14 +130,18 @@ const checkModifications = (data, popin) => {
       }
     })
   });
-
-  console.log(data.menus);
   
   for (type in mealsToAdd) {
     mealsToAdd[type].map(thisDish => {
       data.menus[type].push(thisDish);
     });
   }
+
+  console.log(data.menus);
+
+  saveDataToJson(data);
+
+
   
   menus = reassignCategories({...data.menus});
 
@@ -201,7 +233,7 @@ const createDishLine = (dishList, data, category, i) => {
   dishEditButton.onclick = () => {
     if(dishContainer.contentEditable === "false") {
       dishContainer.contentEditable = "true";
-      dishEditButton.innerText = 'õ';
+      dishEditButton.innerHTML = '<span>õ</span>';
       dishContainer.focus();
     }
     else {
