@@ -18,7 +18,7 @@ const getRandomDish = (menus, mealCategory, i) => {
     i++;
     getRandomDish(menus, mealCategory, i);
 
-    return false;
+    // return false;
 
   }
 
@@ -51,12 +51,10 @@ const assignMealCategory = (meal, category) => {
 
   if(mealCategory === 'mains') {
     assignMealCategory(meal, 'veggies');
-    return false;
   }
 
   if(mealCategory === 'veggies' && (Math.round(Math.random()) > 0)) {
     assignMealCategory(meal, 'extras');
-    return false;
   }
 
   return meal;
@@ -68,6 +66,8 @@ const toggleMealStatus = (assignCategory) => {
   if(assignCategory) {
     assignMealCategory(meal);
   }
+
+  console.log(meal);
 
   return meal;
 }
