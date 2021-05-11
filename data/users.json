@@ -1,13 +1,13 @@
 {
   "users" : [
     {
-      "name": "furore",
+      "name": "aurore",
       "userId": "aurorechiron",
       "password": "weakss198686."      
     },
     {
       "name": "fabrice",
-      "userid": "fabricechiron",
+      "userId": "fabricechiron",
       "password": "test"      
     }
   ]

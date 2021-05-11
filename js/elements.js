@@ -30,7 +30,7 @@ const createWeek = (year, month, day) => {
 
 
 // create checkboxes for each meal each day
-const addFilters = (mealName, mealId, data) => {
+const addFilters = (mealName, mealId) => {
   const mealFilterContainer = createElem('div', document.querySelector('#filters-wrapper'), {
     class: 'meal',
     id: `${mealId}`

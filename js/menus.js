@@ -1,31 +1,3 @@
-let saveDataToJson = function(data) {
-  var json_data = data;
-  
-  console.log('json_data', json_data);
-  console.log('JSON.stringify(json_data)', JSON.stringify(json_data));
-
-  $.ajax({
-    type : "POST",
-    url : "data/save.php",
-    data : {
-        json : JSON.stringify(json_data)
-    },
-    success: function (data){
-      console.log('data', data);
-      console.log("Saved!");
-    },
-    done: function (data) {
-      console.log('done');
-      console.log(data);
-    },
-    fail: function (data) {
-      console.log('fail');
-      console.log(data);
-    }
-  });
-
-}
-
 const getCategoryTitle = {
   tarts: "Tartes",
   pasta: "Pâtes",
@@ -293,7 +265,7 @@ const createList = (popin, popinSection, data) => {
     const buttonAddDish = createElem('button', categoryContainer, {
       class: 'highlight outside symbols'
     })
-    buttonAddDish.innerText = 'Â';
+    buttonAddDish.innerHTML = '<span>Â</span>';
 
     buttonAddDish.onclick = () => {
       createDishLine(dishList, data, category, dishList.childNodes.length + 1);

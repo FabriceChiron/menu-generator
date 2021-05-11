@@ -1,3 +1,42 @@
+const fileExists = (url) => {
+    if(url){
+        var req = new XMLHttpRequest();
+        req.open('GET', url, false);
+        req.send();
+        return req.status==200;
+    } else {
+        return false;
+    }
+}
+
+const saveDataToJson = (data) => {
+  var json_data = data;
+  
+  console.log('json_data', json_data);
+  console.log('JSON.stringify(json_data)', JSON.stringify(json_data));
+
+  $.ajax({
+    type : "POST",
+    url : "data/save.php",
+    data : {
+      json : JSON.stringify(json_data)
+    },
+    success: function (data){
+      console.log('data', data);
+      console.log("Saved!");
+    },
+    done: function (data) {
+      console.log('done');
+      console.log(data);
+    },
+    fail: function (data) {
+      console.log('fail');
+      console.log(data);
+    }
+  });
+
+}
+
 const createElem = (el, ctnr, attrs, where) => {
   const element = document.createElement(el);
   if(attrs) {

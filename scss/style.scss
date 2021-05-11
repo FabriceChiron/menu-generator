@@ -88,6 +88,9 @@ h3 {
 
   #user-management {
     padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 
     .user-login-block {
       display: flex;
@@ -114,8 +117,25 @@ h3 {
       }
     }
 
-    .user-login-block {
-      
+    #error-message {
+      color: red;
+      display: flex;
+      justify-content: center;
+
+      .hidden {
+        display: none;
+      }
+    }
+
+    .buttons {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      align-items: flex-start;
+      height: 0;
+      overflow: visible;
+      position: relative;
+      z-index: 1;
     }
 
 

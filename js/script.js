@@ -13,20 +13,32 @@ let startingDate;
 let alreadyAssignedMeals = [];
 
 const generatePage = (year, month, day, data) => {  
-
-    generateContainers(year, month, day, data);
-
+  generateContainers(year, month, day, data);
 }
 
-const init = () => {
-  console.log('generating page');
-
-  fetch('data/menus.json')
+const copyJsonFile = (defaultName, userId) => {
+  fetch(`data/${defaultName}.json`)
   .then(res => res.json())
   .then(data => {
-  
-    addFilters('Soir', 'dinner', data);
-    addFilters('Midi', 'lunch', data);
+    data.fileName = `${userId}.json`;
+
+    saveDataToJson(data);
+  })
+}
+
+const fetchAndStart = (userId) => {
+
+  if(userId && !fileExists(`data/${userId}.json`)) {
+    copyJsonFile('menus', userId);
+  }
+
+  const jsonFile = `data/${(userId) ? userId : 'menus'}.json`;
+
+  console.log('jsonFile', jsonFile);
+
+  fetch(jsonFile)
+  .then(res => res.json())
+  .then(data => {
 
     menus = reassignCategories({...data.menus});
     generateWeek(data, mealsPerDay);
@@ -52,9 +64,6 @@ const init = () => {
 
         let [year, month, day] = thatDay.value.split('-');
 
-        // console.log([year, month, day]);
-
-        console.log(mealsPerDay);
         generatePage(parseInt(year), parseInt(month) - 1, parseInt(day), data);
       }
     }
@@ -66,19 +75,28 @@ const init = () => {
         getNextDayOfTheWeek(startOnNext.value, false);
         
         let [day, month, year] = getNextDayOfTheWeek(startOnNext.value, false).split('/');
-        
-        console.log(mealsPerDay);
+
         generatePage(parseInt(year), parseInt(month) - 1, parseInt(day), data);
       }
     }
   });
 }
 
+const init = (userId) => {
+  console.log(`generating page for ${(userId) ? userId : 'invité'}`);
+
+  if(userId) {
+    login(userId, null, null, true, fetchAndStart);
+  } else {
+    fetchAndStart();
+  }
+
+  
+}
 
 
 
+addFilters('Soir', 'dinner');
+addFilters('Midi', 'lunch');
 
-
-
-
-init();
+init(getUserId());
