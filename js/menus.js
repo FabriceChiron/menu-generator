@@ -111,7 +111,10 @@ const checkModifications = (data, popin) => {
 
   console.log(data.menus);
 
-  saveDataToJson(data);
+  if(getUserId()) {
+    saveDataToJson(data);
+  }
+
 
 
   
