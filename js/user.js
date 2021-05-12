@@ -86,29 +86,28 @@ const login = (userId, password, errorArea, auto) => {
 
     if(userFound === false) {
       errorMessage(`L'identifiant n'existe pas`, errorArea);
+      const registerButton = createElem('button', errorArea, {
+        class: 'highlight outside register'
+      });
+
+      registerButton.innerText = 'Créer compte';
     }
   })
 }
 
-userBlock.querySelector('div').onclick = () => {
 
-  console.log(getUserId());
-
-  if(getUserId()) {
-    console.log(`Hello ${getUserId()}`);
-  }
-
+const createUserBlock = (action) => {
   const userManagement = createElem('div', document.querySelector('#header'), {
     id: 'user-management',
     class: 'inside'
   });
 
-  const userLoginBlock = createElem('div', userManagement, {
-    class:'user-login-block'
+  const userContainerBlock = createElem('div', userManagement, {
+    class:'user-block'
   });
 
-  createInputBlock('user-id', userLoginBlock);
-  createInputBlock('password', userLoginBlock);
+  createInputBlock('user-id', userContainerBlock);
+  createInputBlock('password', userContainerBlock);
 
   const errorArea = createElem('div', userManagement, {
     id: 'error-message'
@@ -124,7 +123,7 @@ userBlock.querySelector('div').onclick = () => {
   submitButton.innerHTML = '<span>õ</span>';
 
   submitButton.onclick = () => {
-    login(userLoginBlock.querySelector('#user-id-field').value, userLoginBlock.querySelector('#password-field').value, errorArea);
+    login(userContainerBlock.querySelector('#user-id-field').value, userContainerBlock.querySelector('#password-field').value, errorArea);
   }
 
   const closeButton = createElem('button', buttonsArea, {
@@ -135,4 +134,11 @@ userBlock.querySelector('div').onclick = () => {
   closeButton.onclick = () => {
     userManagement.remove();
   }
+}
+
+userBlock.querySelector('div').onclick = () => {
+
+  createUserBlock('login');
+
+  
 }

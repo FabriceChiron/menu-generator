@@ -109,7 +109,7 @@ h3 {
     flex-direction: column;
     gap: 10px;
 
-    .user-login-block {
+    .user-block {
       display: flex;
       flex-direction: column;
       gap: 10px;
@@ -138,6 +138,14 @@ h3 {
       color: red;
       display: flex;
       justify-content: center;
+      align-items: center;
+      gap: 10px;
+
+      button {
+        width: auto;
+        border-radius: 7px !important;
+        padding: 0 10px;
+      }
 
       .hidden {
         display: none;
