@@ -28,24 +28,36 @@ const errorMessage = (message, errorArea) => {
   errorArea.classList.remove('hidden');
 }
 
-const doLogin = (userId, user, fetchAndStart) => {
-  console.log('yo');
-  window.localStorage.setItem('userId', userId);
+const doLogin = (userId, user) => {
+
+  console.log(getUserId());
+
+  if(!getUserId()) {
+    window.localStorage.setItem('userId', userId);
+    location.reload(); 
+  }
+
   
   document.querySelector('#user-id').innerText = user.name;
-  
+  document.querySelector('#user-block').classList.remove('guest');
   if(document.querySelector('#user-management')){
     document.querySelector('#user-management').remove();
   }
 
-  fetchAndStart(userId);
+  const logoutButton = createElem('button', document.querySelector('#user-block'), {
+    class: 'highlight outside symbols logout'
+  });
+  logoutButton.innerHTML = '<span>Î</span>';
+
+  logoutButton.onclick = () => {
+    window.localStorage.removeItem('userId');
+    location.reload();
+  }
+
+  // fetchAndStart(userId);
 }
 
-const login = (userId, password, errorArea, auto, fetchAndStart) => {
-
-  if(fetchAndStart){
-    console.log(fetchAndStart);
-  }
+const login = (userId, password, errorArea, auto) => {
 
   fetch('data/users.json')
   .then(res => res.json())
@@ -59,7 +71,7 @@ const login = (userId, password, errorArea, auto, fetchAndStart) => {
         userFound = userId;
 
         if(user.password === password || auto) {
-          doLogin(userId, user, fetchAndStart);
+          doLogin(userId, user);
           if(errorArea) {
             errorArea.innerHTML = '';
             errorArea.classList.remove('hidden');
@@ -78,9 +90,13 @@ const login = (userId, password, errorArea, auto, fetchAndStart) => {
   })
 }
 
-userBlock.onclick = () => {
+userBlock.querySelector('div').onclick = () => {
 
-  console.log('clicked');
+  console.log(getUserId());
+
+  if(getUserId()) {
+    console.log(`Hello ${getUserId()}`);
+  }
 
   const userManagement = createElem('div', document.querySelector('#header'), {
     id: 'user-management',
