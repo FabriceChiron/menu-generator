@@ -65,7 +65,7 @@ const fileExists = (url) => {
     }
 }
 
-const saveDataToJson = (data) => {
+const saveDataToJson = (data, fileName) => {
   var json_data = data;
   
   console.log('json_data', json_data);
@@ -73,7 +73,7 @@ const saveDataToJson = (data) => {
 
   $.ajax({
     type : "POST",
-    url : "data/save.php",
+    url : `data/${fileName}.php`,
     contentType: "application/json",
     data : JSON.stringify(json_data),
     success: function (data){

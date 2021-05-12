@@ -22,7 +22,7 @@ const copyJsonFile = (defaultName, userId) => {
   .then(data => {
     data.fileName = `${userId}.json`;
 
-    saveDataToJson(data);
+    saveDataToJson(data, 'save');
   })
 }
 

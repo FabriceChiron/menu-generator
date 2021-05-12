@@ -6,19 +6,47 @@ const getUserId = () => {
   return userId;
 }
 
-const createInputBlock = (field, userLoginBlock) => {
+const createInputBlock = (field, userLoginBlock, userId) => {
   const block = createElem('div', userLoginBlock, {
     class: 'block'
   });
   const label = createElem('label', block, {
     for: `${field}-field`
   });
-  label.innerText = `${(field === 'password') ? 'Mot de passe :' : 'Identifiant :'}`
+
+  let labelText = '';
+  let placeHolderText = '';
+
+  switch(field) {
+    case 'password':
+      labelText = 'Mot de passe';
+      placeHolderText = 'Entrer mot de passe';
+    break;
+
+    case 'confirm-password':
+      labelText = 'Confirmer MdP';
+      placeHolderText = 'Encore une fois';
+    break;
+
+    case 'user-name':
+      labelText = 'Nom';
+      placeHolderText = 'ex: Prénom Nom';
+    break;
+    
+    case 'user-id':
+      labelText = 'Identifiant';
+      placeHolderText = 'ex: prenomnom';
+    break;
+  }
+
+  label.innerText = labelText;
 
   const userField = createElem('input', block, {
     id: `${field}-field`,
-    type: `${(field === 'password') ? 'password' : 'text'}`,
-    class: 'outside'
+    placeholder: `${placeHolderText}`,
+    type: `${((field === 'password') || (field === 'confirm-password')) ? 'password' : 'text'}`,
+    class: 'outside',
+    value: `${(userId) ? userId : ''}`
   });
 
 }
@@ -28,7 +56,7 @@ const errorMessage = (message, errorArea) => {
   errorArea.classList.remove('hidden');
 }
 
-const doLogin = (userId, user) => {
+const doLogin = (userId, userName) => {
 
   console.log(getUserId());
 
@@ -38,7 +66,7 @@ const doLogin = (userId, user) => {
   }
 
   
-  document.querySelector('#user-id').innerText = user.name;
+  document.querySelector('#user-id').innerText = userName;
   document.querySelector('#user-block').classList.remove('guest');
   if(document.querySelector('#user-management')){
     document.querySelector('#user-management').remove();
@@ -57,6 +85,69 @@ const doLogin = (userId, user) => {
   // fetchAndStart(userId);
 }
 
+const doRegister = (userName, userId, password) => {
+  fetch('data/users.json')
+  .then(res => res.json())
+  .then(data => {
+    const newUser = {
+      "name": userName,
+      "userId": userId,
+      "password": password      
+    }
+
+    data.users.push(newUser);
+
+    saveDataToJson(data, 'users');
+
+    doLogin(userId, userName); 
+  })
+
+  // saveDataToJson(
+}
+
+const register = (userName, userId, password, confirmPassword, errorArea, auto) => {
+
+  fetch('data/users.json')
+  .then(res => res.json())
+  .then(data => {
+    let userFound = false;
+
+    data.users.map(user => {
+      if(user.userId === userId) {
+        errorMessage(`${userId} existe déjà`, errorArea);
+      }
+      else {
+        console.log({
+          password: password,
+          passwordLength: password.length,
+          userName: userName,
+          userNameLength: userName.length
+        });
+
+        if(userName.length === 0) {
+          errorMessage(`Veuillez entrer votre nom`, errorArea);
+        }
+        else if(userId.length === 0) {
+          errorMessage(`Veuillez entrer un identifiant`, errorArea);
+        }
+        else if(password.length === 0) {
+          errorMessage(`Veuillez entrer un mot de passe`, errorArea);
+        }
+        else if(confirmPassword.length === 0) {
+          errorMessage(`Veuillez confirmer mot de passe`, errorArea);
+        }
+        else if(confirmPassword !== password) {
+          errorMessage(`Le mot de passe et sa confirmation doivent être identiques`, errorArea);
+        }
+
+        else {
+          doRegister(userName, userId, password);
+        }
+      }
+    });
+  })
+}
+
 const login = (userId, password, errorArea, auto) => {
 
   fetch('data/users.json')
@@ -71,7 +162,7 @@ const login = (userId, password, errorArea, auto) => {
         userFound = userId;
 
         if(user.password === password || auto) {
-          doLogin(userId, user);
+          doLogin(userId, user.name);
           if(errorArea) {
             errorArea.innerHTML = '';
             errorArea.classList.remove('hidden');
@@ -92,6 +183,7 @@ const login = (userId, password, errorArea, auto) => {
 
       registerButton.innerText = 'Créer compte';
       registerButton.onclick = () => {
+        document.querySelector('#user-management').remove();
         createUserBlock('register', userId);
       }
     }
@@ -100,6 +192,7 @@ const login = (userId, password, errorArea, auto) => {
 
 
 const createUserBlock = (action, userId) => {
+
   const userManagement = createElem('div', document.querySelector('#header'), {
     id: 'user-management',
     class: 'inside'
@@ -109,16 +202,53 @@ const createUserBlock = (action, userId) => {
     class:'user-block'
   });
 
-  swtich(action) {
+  const actionTitlesContainer = createElem('div', userContainerBlock, {
+    class: 'action-titles-container'
+  });
+
+  const loginTitle = createElem('h2', actionTitlesContainer);
+  loginTitle.innerText = 'Connexion :';
+
+  const registerTitle = createElem('h2', actionTitlesContainer);
+  registerTitle.innerText = 'Inscription :';
+
+  switch(action) {
     case 'login':
+      // createElem('h2', userContainerBlock).innerText = 'Connexion :';
       createInputBlock('user-id', userContainerBlock);
       createInputBlock('password', userContainerBlock);
+      
+      setAttributes(loginTitle, {
+        class: 'inside highlight'
+      });
+      
+      setAttributes(registerTitle, {
+        class: 'outside'
+      });
+      registerTitle.onclick = () => {
+        document.querySelector('#user-management').remove();
+        createUserBlock('register', userId);
+      }
     break;
 
     case 'register':
+      // createElem('h2', userContainerBlock).innerText = 'Inscription :';
       createInputBlock('user-name', userContainerBlock);
-      createInputBlock('user-id', userContainerBlock);
+      createInputBlock('user-id', userContainerBlock, userId);
       createInputBlock('password', userContainerBlock);
+      createInputBlock('confirm-password', userContainerBlock);
+      
+      setAttributes(registerTitle, {
+        class: 'inside highlight'
+      });
+
+      setAttributes(loginTitle, {
+        class: 'outside'
+      });
+      loginTitle.onclick = () => {
+        document.querySelector('#user-management').remove();
+        createUserBlock('login', userId);
+      }
     break;
   }
 
@@ -137,7 +267,20 @@ const createUserBlock = (action, userId) => {
   submitButton.innerHTML = '<span>õ</span>';
 
   submitButton.onclick = () => {
-    login(userContainerBlock.querySelector('#user-id-field').value, userContainerBlock.querySelector('#password-field').value, errorArea);
+    if(action === 'login') {
+      login(
+        userContainerBlock.querySelector('#user-id-field').value, 
+        userContainerBlock.querySelector('#password-field').value, 
+        errorArea);
+    }
+    if(action === 'register') {
+      register(
+        userContainerBlock.querySelector('#user-name-field').value, 
+        userContainerBlock.querySelector('#user-id-field').value, 
+        userContainerBlock.querySelector('#password-field').value, 
+        userContainerBlock.querySelector('#confirm-password-field').value, 
+        errorArea);
+    }
   }
 
   const closeButton = createElem('button', buttonsArea, {

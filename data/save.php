@@ -1,10 +1,10 @@
 <?php
   $rawPostData = file_get_contents("php://input");
-  // var_dump($rawPostData);
+  var_dump($rawPostData);
   $data = json_decode($rawPostData, true);
-  // var_dump($data);
+  var_dump($data);
   $fileName = $data['fileName'];
-  // var_dump($fileName);
+  var_dump($fileName);
 
   // $json_encoded = json_encode($data);
   file_put_contents($fileName, $rawPostData);

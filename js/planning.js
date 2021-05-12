@@ -67,8 +67,6 @@ const toggleMealStatus = (assignCategory) => {
     assignMealCategory(meal);
   }
 
-  console.log(meal);
-
   return meal;
 }
 
