@@ -91,12 +91,15 @@ const login = (userId, password, errorArea, auto) => {
       });
 
       registerButton.innerText = 'Créer compte';
+      registerButton.onclick = () => {
+        createUserBlock('register', userId);
+      }
     }
   })
 }
 
 
-const createUserBlock = (action) => {
+const createUserBlock = (action, userId) => {
   const userManagement = createElem('div', document.querySelector('#header'), {
     id: 'user-management',
     class: 'inside'
@@ -106,8 +109,19 @@ const createUserBlock = (action) => {
     class:'user-block'
   });
 
-  createInputBlock('user-id', userContainerBlock);
-  createInputBlock('password', userContainerBlock);
+  swtich(action) {
+    case 'login':
+      createInputBlock('user-id', userContainerBlock);
+      createInputBlock('password', userContainerBlock);
+    break;
+
+    case 'register':
+      createInputBlock('user-name', userContainerBlock);
+      createInputBlock('user-id', userContainerBlock);
+      createInputBlock('password', userContainerBlock);
+    break;
+  }
+
 
   const errorArea = createElem('div', userManagement, {
     id: 'error-message'
