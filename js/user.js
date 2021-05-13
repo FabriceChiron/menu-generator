@@ -6,7 +6,13 @@ const getUserId = () => {
   return userId;
 }
 
-const createInputBlock = (field, userLoginBlock, userId) => {
+const getUserName = () => {
+  const userName = window.localStorage.getItem('userName');
+
+  return userName;
+}
+
+const createInputBlock = (field, userLoginBlock, prefill) => {
   const block = createElem('div', userLoginBlock, {
     class: 'block'
   });
@@ -23,6 +29,11 @@ const createInputBlock = (field, userLoginBlock, userId) => {
       placeHolderText = 'Entrer mot de passe';
     break;
 
+    case 'new-password':
+      labelText = 'Nouveau MdP';
+      placeHolderText = 'Nouveau mot de passe';
+    break;
+
     case 'confirm-password':
       labelText = 'Confirmer MdP';
       placeHolderText = 'Encore une fois';
@@ -32,9 +43,19 @@ const createInputBlock = (field, userLoginBlock, userId) => {
       labelText = 'Nom';
       placeHolderText = 'ex: Prénom Nom';
     break;
+
+    case 'new-user-name':
+      labelText = 'Nouveau Nom';
+      placeHolderText = 'ex: Prénom Nom';
+    break;
     
     case 'user-id':
       labelText = 'Identifiant';
+      placeHolderText = 'ex: prenomnom';
+    break;
+    
+    case 'new-user-id':
+      labelText = 'Nouveal Identifiant';
       placeHolderText = 'ex: prenomnom';
     break;
   }
@@ -46,7 +67,9 @@ const createInputBlock = (field, userLoginBlock, userId) => {
     placeholder: `${placeHolderText}`,
     type: `${((field === 'password') || (field === 'confirm-password')) ? 'password' : 'text'}`,
     class: 'outside',
-    value: `${(userId) ? userId : ''}`
+    name: `${field}`,
+    autocomplete: `off`,
+    value: `${(prefill) ? prefill : ''}`
   });
 
 }
@@ -58,11 +81,13 @@ const errorMessage = (message, errorArea) => {
 
 const doLogin = (userId, userName) => {
 
-  console.log(getUserId());
-
   if(!getUserId()) {
     window.localStorage.setItem('userId', userId);
     location.reload(); 
+  }
+
+  if(!getUserName()) {
+    window.localStorage.setItem('userName', userName);
   }
 
   
@@ -72,10 +97,28 @@ const doLogin = (userId, userName) => {
     document.querySelector('#user-management').remove();
   }
 
-  const logoutButton = createElem('button', document.querySelector('#user-block'), {
+
+  const buttonsArea = document.querySelector('#user-block .buttons') || createElem('div', document.querySelector('#user-block'), {
+    class: 'buttons'
+  });
+
+  buttonsArea.innerHTML = '';
+
+  const editUserButton = createElem('button', buttonsArea, {
+    class: 'highlight outside symbols edit-user'
+  });
+  
+  editUserButton.innerHTML = '?';
+
+  editUserButton.onclick = () => {
+    createUserBlock('edit-user');
+  }
+
+  const logoutButton = createElem('button', buttonsArea, {
     class: 'highlight outside symbols logout'
   });
-  logoutButton.innerHTML = '<span>Î</span>';
+  
+  logoutButton.innerHTML = '`';
 
   logoutButton.onclick = () => {
     window.localStorage.removeItem('userId');
@@ -117,12 +160,6 @@ const register = (userName, userId, password, confirmPassword, errorArea, auto) 
         errorMessage(`${userId} existe déjà`, errorArea);
       }
       else {
-        console.log({
-          password: password,
-          passwordLength: password.length,
-          userName: userName,
-          userNameLength: userName.length
-        });
 
         if(userName.length === 0) {
           errorMessage(`Veuillez entrer votre nom`, errorArea);
@@ -141,10 +178,48 @@ const register = (userName, userId, password, confirmPassword, errorArea, auto) 
         }
 
         else {
-          doRegister(userName, userId, password);
+          doRegister(userName.toLowerCase(), userId, password);
         }
       }
     });
+  })
+}
+
+const editUser = (userName, newUserName, password, newPassword, errorArea) => {
+  fetch('data/users.json')
+  .then(res => res.json())
+  .then(data => {
+    const userId = getUserId();
+
+    data.users.map(user => { 
+      if(user.userId === getUserId()) {
+        
+        if(user.name.toLowerCase() !== userName) {
+          errorMessage(`Nom incorrect`, errorArea);
+        }
+        else if(user.password !== password) {
+          errorMessage(`Veuillez remplir le bon mot de passe pour enregistrer les modifications`, errorArea);
+        }
+        else {
+          if(newUserName.length > 0) {
+            user.name = newUserName.toLowerCase();
+            window.localStorage.setItem('userName', newUserName.toLowerCase());
+            location.reload();
+          }
+          if(newPassword.length > 0) {
+            user.password = newPassword;
+          }
+
+          saveDataToJson(data, 'users');
+
+          doLogin(userId, userName);
+
+          window.location.reload;
+        }
+      }
+    })
+
+
   })
 }
 
@@ -158,11 +233,10 @@ const login = (userId, password, errorArea, auto) => {
 
     data.users.map(user => {
       if(user.userId === userId) {
-        console.log('found you!');
         userFound = userId;
 
         if(user.password === password || auto) {
-          doLogin(userId, user.name);
+          doLogin(userId, user.name.toLowerCase());
           if(errorArea) {
             errorArea.innerHTML = '';
             errorArea.classList.remove('hidden');
@@ -198,21 +272,34 @@ const createUserBlock = (action, userId) => {
     class: 'inside'
   });
 
-  const userContainerBlock = createElem('div', userManagement, {
-    class:'user-block'
+  const userContainerBlock = createElem('form', userManagement, {
+    class:'user-block',
+    autocomplete: 'off'
   });
 
   const actionTitlesContainer = createElem('div', userContainerBlock, {
     class: 'action-titles-container'
   });
 
-  const loginTitle = createElem('h2', actionTitlesContainer);
-  loginTitle.innerText = 'Connexion :';
+  let loginTitle, registerTitle;
 
-  const registerTitle = createElem('h2', actionTitlesContainer);
-  registerTitle.innerText = 'Inscription :';
+  if(action !== 'edit-user') {
+    loginTitle = createElem('h2', actionTitlesContainer);
+    loginTitle.innerText = 'Connexion :';
+
+    registerTitle = createElem('h2', actionTitlesContainer);
+    registerTitle.innerText = 'Inscription :';
+  }
 
   switch(action) {
+    case 'edit-user':
+      createInputBlock('user-name', userContainerBlock, getUserName());
+      createInputBlock('new-user-name', userContainerBlock);
+
+      createInputBlock('password', userContainerBlock);
+      createInputBlock('new-password', userContainerBlock);
+    break;
+
     case 'login':
       // createElem('h2', userContainerBlock).innerText = 'Connexion :';
       createInputBlock('user-id', userContainerBlock);
@@ -233,8 +320,8 @@ const createUserBlock = (action, userId) => {
 
     case 'register':
       // createElem('h2', userContainerBlock).innerText = 'Inscription :';
-      createInputBlock('user-name', userContainerBlock);
       createInputBlock('user-id', userContainerBlock, userId);
+      createInputBlock('user-name', userContainerBlock);
       createInputBlock('password', userContainerBlock);
       createInputBlock('confirm-password', userContainerBlock);
       
@@ -261,12 +348,26 @@ const createUserBlock = (action, userId) => {
     class: 'buttons'
   });
 
-  const submitButton = createElem('button', buttonsArea, {
-    class: 'highlight outside symbols submit'
+  const submitButtonHolder = createElem('div', buttonsArea, {
+    class: 'button-holder'
   });
+  submitButtonHolder.innerHTML = '<span>Valider</span>'
+
+  const submitButton = createElem('button', submitButtonHolder, {
+    class: 'highlight outside symbols submit'
+  }, 'prepend');
+
   submitButton.innerHTML = '<span>õ</span>';
 
-  submitButton.onclick = () => {
+  submitButtonHolder.onclick = () => {
+    if(action === 'edit-user') {
+      editUser(
+        userContainerBlock.querySelector('#user-name-field').value, 
+        userContainerBlock.querySelector('#new-user-name-field').value, 
+        userContainerBlock.querySelector('#password-field').value, 
+        userContainerBlock.querySelector('#new-password-field').value,
+        errorArea);
+    }
     if(action === 'login') {
       login(
         userContainerBlock.querySelector('#user-id-field').value, 
@@ -283,19 +384,25 @@ const createUserBlock = (action, userId) => {
     }
   }
 
-  const closeButton = createElem('button', buttonsArea, {
-    class: 'highlight outside symbols cancel'
+  const closeButtonHolder = createElem('div', buttonsArea, {
+    class: 'button-holder'
   });
+  closeButtonHolder.innerHTML = '<span>Fermer</span>'
+
+  const closeButton = createElem('button', closeButtonHolder, {
+    class: 'highlight outside symbols cancel'
+  }, 'prepend');
   closeButton.innerHTML = '<span>Î</span>';
 
-  closeButton.onclick = () => {
+  closeButtonHolder.onclick = () => {
     userManagement.remove();
   }
 }
 
 userBlock.querySelector('div').onclick = () => {
 
-  createUserBlock('login');
-
+  if(userBlock.nextElementSibling === getUserId()) {
+    createUserBlock('login');
+  }
   
 }

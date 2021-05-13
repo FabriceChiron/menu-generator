@@ -131,7 +131,7 @@ h3 {
 
     }
 
-    > div {
+    .user-block {
       .block {
         display: flex;
         gap: 10px;
@@ -156,6 +156,7 @@ h3 {
       display: flex;
       justify-content: center;
       align-items: center;
+      text-align: center;
       gap: 10px;
 
       button {
@@ -171,13 +172,20 @@ h3 {
 
     .buttons {
       display: flex;
-      gap: 10px;
+      gap: 20px;
       justify-content: center;
-      align-items: flex-start;
+      align-items: center;
       height: 0;
       overflow: visible;
       position: relative;
       z-index: 1;
+      top: 10px;
+
+      .button-holder {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
     }
 
 
@@ -381,6 +389,10 @@ button {
   box-sizing: border-box;
   padding: 0;
   cursor: pointer;
+
+  &.logout {
+    text-indent: 0.15em;
+  }
 
   &.hide {
     visibility: hidden;
