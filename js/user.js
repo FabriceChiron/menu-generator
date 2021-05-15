@@ -107,6 +107,7 @@ const doLogin = (userId, userName) => {
   const editUserButton = createElem('button', buttonsArea, {
     class: 'highlight outside symbols edit-user'
   });
+  editUserButton.dataset.text = 'éditer profil';
   
   editUserButton.innerHTML = '?';
 
@@ -117,6 +118,7 @@ const doLogin = (userId, userName) => {
   const logoutButton = createElem('button', buttonsArea, {
     class: 'highlight outside symbols logout'
   });
+  logoutButton.dataset.text = 'déconnexion';
   
   logoutButton.innerHTML = '`';
 
