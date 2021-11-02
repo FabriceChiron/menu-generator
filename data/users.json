@@ -1,14 +1,1 @@
-{
-  "users" : [
-    {
-      "name": "aurore",
-      "userId": "aurorechiron",
-      "password": "weakss198686."      
-    },
-    {
-      "name": "fabrice",
-      "userId": "fabricechiron",
-      "password": "test"      
-    }
-  ]
-}
+{"users":[{"name":"aurore","userId":"aurorechiron","password":"weakss198686."},{"name":"fabrice","userId":"fabricechiron","password":"test"}]}
